@@ -9,40 +9,46 @@
 
   </head>
   <body>
-      <header>
-        <h1>Intention Timer</h1>
-      </header>
-      <main>
+    <header>
+      <h1>Intention Timer</h1>
+    </header>
+    <main>
+      <form>
         <h2>New Activity</h2>
-      <section class="activity-form">
-        <!-- May change above element to form -->
-        <section>
+        <div class="activity-box">
           <h3>Select a category:</h3>
-          <section class="category-button">
-            <button></button>
-            <button></button>
-            <button></button>
-        </section>
-        </section>
-        <label>
-          <input type="text" name="goal" />
-          What would you like to accomplish during this time?
-        </label>
-        <label>
-          <input type="text" name="minutes" />
-          Minutes
-        </label>
-        <label>
-          <input type="text" name="Seconds" />
-          Seconds
-        </label>
-        <button>Start Activity</button>
-      </section>
-      </main>
+          <button class="activity-button">
+            <img src="./assets/study.svg" class="activity-image" />
+            Study
+          </button>
+          <button class="activity-button">
+            <img src="./assets/meditate.svg" class="activity-image" />
+            Meditate
+          </button>
+          <button class="activity-button">
+            <img src="./assets/exercise.svg" class="activity-image" />
+            Exercise
+          </button>
+          <label>
+            What would you like to accomplish during this time?
+            <input type="text" name="goal" />
+          </label>
+          <label>
+            Minutes
+            <input type="text" name="minutes" />
+          </label>
+          <label>
+            Seconds
+            <input type="text" name="Seconds" />
+          </label>
+          <button class="start-activity-button">Start Activity</button>
+        </div>
+      </form>
       <section>
         <h2>Past Activities</h2>
         <p>You haven't logged any activities yet. Complete the form to the left to get started!</p>
       </section>
+    </main>
   </body>
   <script type="text/javascript" src="main.js"></script>
 </html>
