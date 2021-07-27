@@ -68,6 +68,11 @@ body {
 }
 
 main {
+  display: grid;
+  grid-template-columns: 60% 40%;
+  /* grid-column-gap: 5px; */
+  grid-template-rows: 100%;
+  /* grid-auto-rows: minmax(100px, auto); */
   background-color: #2B2733;
   color: #CBC9CF
  }
@@ -75,6 +80,16 @@ main {
 header,
 .activity-box {
   background-color: #46424D;
+  color: #FFF;
+}
+
+h2 {
+  padding-bottom: 10px;
+}
+
+header {
+  text-align: center;
+  padding: 20px 0px 20px 0px;
 }
 
 header,
@@ -82,13 +97,51 @@ header,
   text-transform: uppercase;
 }
 
-header,
-.activity-box {
-  color: #FFF;
-}
 
 .activity-image {
   width: 50px;
   height: 50px;
-  /* display: inline-block; */
+  display: flex;
+  justify -content: center;
+  align-items: center;
+}
+
+.new-activity-form,
+.past-activities-section {
+
+}
+
+.activity-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.activity-button {
+  background-color: transparent;
+  border: #FFF solid 1px;
+  border-radius: 5px;
+  color: #FFF;
+}
+
+form {
+  margin: 20px;
+}
+
+.activity-box {
+  padding: 30px 50px 30px 50px;
+}
+
+.input-box {
+  background-color: transparent;
+  border: none;
+  border-bottom: #FFF solid 1px;
+}
+
+.start-activity-button {
+  color: #46424D;
+  padding: 3px 20px 3px 20px;
+}
+
+.past-activities-section {
+  margin-top: 20px;
 }
