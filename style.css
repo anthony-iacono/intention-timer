@@ -150,6 +150,7 @@ form {
   background-color: transparent;
   border: none;
   border-bottom: #FFF solid 1px;
+  color: #FFF;
 }
 
 .start-activity-button {
