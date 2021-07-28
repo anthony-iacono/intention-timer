@@ -19,12 +19,19 @@ activityButtons.addEventListener('click', function(event) {
 //Event Handlers
 function changeColor(event) {
   event.preventDefault()
-
-  if(event.target.parentNode.classList.contains('js-study-button')) {
+  if(event.target.classList.contains('js-study-button')) {
     studyActiveImage.classList.toggle('hidden');
     studyInactiveImage.classList.toggle('hidden');
     studyButton.classList.toggle('study-active-button');
-
   }
-  //on click, add remove classes defined in css that are specific to that activity category
+  if(event.target.classList.contains('js-meditate-button')) {
+    meditateActiveImage.classList.toggle('hidden');
+    meditateInactiveImage.classList.toggle('hidden');
+    meditateButton.classList.toggle('meditate-active-button');
+  }
+  if(event.target.classList.contains('js-exercise-button')) {
+    exerciseActiveImage.classList.toggle('hidden');
+    exerciseInactiveImage.classList.toggle('hidden');
+    exerciseButton.classList.toggle('exercise-active-button');
+  }
 };
