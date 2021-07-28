@@ -123,6 +123,21 @@ header,
   color: #FFF;
 }
 
+.study-active-button {
+  border: #B3FD78 solid 1px;
+  color: #B3FD78;
+}
+
+.meditate-active-button {
+  border: #C278FD solid 1px;
+  color: #C278FD;
+}
+
+.exercise-active-button {
+  border: #FD8078 solid 1px;
+  color: #FD8078;
+}
+
 form {
   margin: 20px;
 }
@@ -144,4 +159,8 @@ form {
 
 .past-activities-section {
   margin-top: 20px;
+}
+
+.hidden {
+  display: none;
 }
