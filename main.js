@@ -2,7 +2,7 @@
 var studyButton = document.querySelector('.js-study-button');
 var meditateButton = document.querySelector('.js-meditate-button');
 var exerciseButton = document.querySelector('.js-exercise-button');
-var activityButtons = document.querySelector('.js-activity-buttons');
+// var activityButtons = document.querySelector('.js-activity-buttons');
 var meditateActiveImage = document.querySelector('.js-meditate-active-image');
 var meditateInactiveImage = document.querySelector('.js-meditate-inactive-image');
 var studyActiveImage = document.querySelector('.js-study-active-image');
@@ -15,6 +15,7 @@ var intentionTextInput = document.querySelector('.js-input-text');
 var textWarningMessage = document.querySelectorAll('.js-text-warning-message');
 var inputs = document.querySelectorAll('.input-box');
 var warnings = document.querySelectorAll('.js-warning-message');
+var pastActivitiesSection = document.getElementById('js-past-activities-section')
 //Event Listeners
 activityButtons.addEventListener('click', function(event) {
   changeColor(event);

@@ -13,11 +13,11 @@
       <h1>Intention Timer</h1>
     </header>
     <main>
-      <form class="new-activity-form">
+      <form id="new-activity-form">
         <h2>New Activity</h2>
         <div class="activity-box">
           <h3>Select a category:</h3>
-          <div class="activity-buttons js-activity-buttons">
+          <div class="activity-buttons">
             <button class="activity-button js-study-button">
               <img src="./assets/study.svg" class="activity-image js-study-inactive-image js-study-button" />
               <img src="./assets/study-active.svg" class="hidden activity-image js-study-active-image js-study-button" />
@@ -61,7 +61,7 @@
           <button class="start-activity-button js-start-activity-button">Start Activity</button>
         </div>
       </form>
-      <section class="past-activities-section">
+      <section class="past-activities-section" id="js-past-activities-section">
         <h2>Past Activities</h2>
         <p>You haven't logged any activities yet. Complete the form to the left to get started!</p>
       </section>
