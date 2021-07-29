@@ -10,7 +10,11 @@ var studyInactiveImage = document.querySelector('.js-study-inactive-image');
 var exerciseActiveImage = document.querySelector('.js-exercise-active-image');
 var exerciseInactiveImage = document.querySelector('.js-exercise-inactive-image');
 var numberInput = document.querySelectorAll('.js-input-number');
-
+var startActivityButton = document.querySelector('.js-start-activity-button');
+var intentionTextInput = document.querySelector('.js-input-text');
+var textWarningMessage = document.querySelectorAll('.js-text-warning-message');
+var inputs = document.querySelectorAll('.input-box');
+var warnings = document.querySelectorAll('.js-warning-message');
 //Event Listeners
 activityButtons.addEventListener('click', function(event) {
   changeColor(event);
@@ -25,6 +29,11 @@ function addNumberListeners(input) {
     }
   })
 };
+
+startActivityButton.addEventListener('click', function(event){
+  checkInput(event);
+});
+
 
 //Event Handlers
 function changeColor(event) {
@@ -45,3 +54,12 @@ function changeColor(event) {
     exerciseButton.classList.toggle('exercise-active-button');
   }
 };
+
+function checkInput(event) {
+  event.preventDefault()
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].value === "") {
+      warnings[i].classList.remove('hidden');
+    }
+  }
+}

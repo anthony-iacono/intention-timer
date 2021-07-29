@@ -36,17 +36,29 @@
           </div>
           <label>
             What would you like to accomplish during this time?
-            <input type="text" name="goal" class="input-box" />
+            <input type="text" name="goal" class="input-box js-input-text" />
+            <div class="hidden warning-message js-warning-message">
+              <img src="./assets/warning.svg" class="warning-image" />
+              <p>A description is required.</p>
+            </div>
           </label>
           <label>
             Minutes
             <input type="number" name="minutes" class="input-box js-input-number" />
+            <div class="hidden warning-message js-warning-message">
+              <img src="./assets/warning.svg" class="warning-image" />
+              <p>Minutes are required.</p>
+            </div>
           </label>
           <label>
             Seconds
             <input type="number" name="Seconds" class="input-box js-input-number" />
+            <div class="hidden warning-message js-warning-message">
+              <img src="./assets/warning.svg" class="warning-image" />
+              <p>Seconds are required.</p>
+            </div>
           </label>
-          <button class="start-activity-button">Start Activity</button>
+          <button class="start-activity-button js-start-activity-button">Start Activity</button>
         </div>
       </form>
       <section class="past-activities-section">
