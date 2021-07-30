@@ -1,25 +1,21 @@
 // Variables
-var studyButton = document.querySelector('.js-study-button');
-var meditateButton = document.querySelector('.js-meditate-button');
-var exerciseButton = document.querySelector('.js-exercise-button');
-// var activityButtons = document.querySelector('.js-activity-buttons');
-var meditateActiveImage = document.querySelector('.js-meditate-active-image');
-var meditateInactiveImage = document.querySelector('.js-meditate-inactive-image');
-var studyActiveImage = document.querySelector('.js-study-active-image');
-var studyInactiveImage = document.querySelector('.js-study-inactive-image');
-var exerciseActiveImage = document.querySelector('.js-exercise-active-image');
-var exerciseInactiveImage = document.querySelector('.js-exercise-inactive-image');
+var newActivityForm = document.querySelector('form');
+var pastActivitiesSection = document.querySelector('section');
+
 var numberInput = document.querySelectorAll('.js-input-number');
 var startActivityButton = document.querySelector('.js-start-activity-button');
 var intentionTextInput = document.querySelector('.js-input-text');
 var textWarningMessage = document.querySelectorAll('.js-text-warning-message');
 var inputs = document.querySelectorAll('.input-box');
 var warnings = document.querySelectorAll('.js-warning-message');
-var pastActivitiesSection = document.getElementById('js-past-activities-section')
+
 //Event Listeners
-activityButtons.addEventListener('click', function(event) {
-  changeColor(event);
-});
+newActivityForm.addEventListener('click', function(event) {
+  event.preventDefault();
+  if (event.target.classList.contains('js-activity-button')) {
+    changeColor();
+  }
+})
 
 numberInput.forEach(addNumberListeners)
 function addNumberListeners(input) {
@@ -35,24 +31,23 @@ startActivityButton.addEventListener('click', function(event){
   checkInput(event);
 });
 
-
 //Event Handlers
-function changeColor(event) {
-  event.preventDefault()
-  if(event.target.classList.contains('js-study-button')) {
-    studyActiveImage.classList.toggle('hidden');
-    studyInactiveImage.classList.toggle('hidden');
-    studyButton.classList.toggle('study-active-button');
-  }
-  if(event.target.classList.contains('js-meditate-button')) {
-    meditateActiveImage.classList.toggle('hidden');
-    meditateInactiveImage.classList.toggle('hidden');
-    meditateButton.classList.toggle('meditate-active-button');
-  }
-  if(event.target.classList.contains('js-exercise-button')) {
-    exerciseActiveImage.classList.toggle('hidden');
-    exerciseInactiveImage.classList.toggle('hidden');
-    exerciseButton.classList.toggle('exercise-active-button');
+function changeColor() {
+  if (event.target.classList.contains('js-study-button')) {
+    document.querySelectorAll('.js-study-image').forEach(
+      icon => icon.classList.toggle('hidden')
+    );
+    document.querySelector('.js-study-button').classList.toggle('study-active-button');
+  } else if (event.target.classList.contains('js-meditate-button')) {
+    document.querySelectorAll('.js-meditate-image').forEach(
+      icon => icon.classList.toggle('hidden')
+    );
+    document.querySelector('.js-meditate-button').classList.toggle('meditate-active-button');
+  } else if (event.target.classList.contains('js-exercise-button')) {
+    document.querySelectorAll('.js-exercise-image').forEach(
+      icon => icon.classList.toggle('hidden')
+    );
+    document.querySelector('.js-exercise-button').classList.toggle('exercise-active-button');
   }
 };
 
