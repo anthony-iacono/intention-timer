@@ -11,6 +11,9 @@ var warnings = document.querySelectorAll('.js-warning-message');
 var minutes = document.querySelector('.js-minutes');
 var seconds = document.querySelector('.js-seconds');
 
+var timerSection = document.querySelector('.js-timer-section');
+const countdownTimer = document.querySelector('.js-countdown-timer');
+
 // Event Listeners
 newActivityForm.addEventListener('click', function(event) {
   event.preventDefault();
@@ -18,6 +21,10 @@ newActivityForm.addEventListener('click', function(event) {
     changeColor();
   } else if (event.target.classList.contains('js-start-activity-button')) {
     addActivity();
+    document.querySelector('form').classList.add('hidden');
+    document.querySelector('.js-timer-section').classList.remove('hidden');
+
+
   }
 })
 
@@ -34,6 +41,11 @@ function addNumberListeners(input) {
 startActivityButton.addEventListener('click', function(event){
   checkInput(event);
 });
+
+timerSection.addEventListener('click', function(event) {
+  if (event.target.classList.contains('js-start-timer-button'))
+    startCountdown();
+})
 
 //Event Handlers
 function changeColor() {
@@ -68,9 +80,28 @@ function checkInput(event) {
 }
 
 function addActivity() {
-  console.log(minutes, seconds)
   let activity = new Activity(activeButton, intentionTextInput.value, minutes.value, seconds.value, false, (Date.now() + Math.round(Math.random() * 10)));
-  // constructor(category, description, minutes, seconds, completed, id)
+  activities.push(activity);
+}
 
-  activities.push(activity)
+// Countdown Timer
+function startCountdown() {
+  setInterval(updateCountdown, 1000);
+  let startingMinutes = minutes.value;
+  let startingSeconds = seconds.value
+  let time = parseInt(startingMinutes * 60) + parseInt(startingSeconds);
+
+  function updateCountdown() {
+    if (time < 0) {
+      return;
+    }
+
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
+
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+
+    countdownTimer.innerHTML = `${minutes}:${seconds}`;
+    time--;
+  }
 }
