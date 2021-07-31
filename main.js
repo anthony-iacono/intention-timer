@@ -36,10 +36,10 @@ exerciseButton.addEventListener('click', function(event) {
   changeColor(event);
 });
 startActivityButton.addEventListener('click', function(event) {
-  startActivity(event);
+  checkInput(event);
 });
 
-function startActivity() {
+function startActivity(event) {
   event.preventDefault();
   addActivity();
   newActivityForm.classList.add('hidden');
@@ -73,16 +73,10 @@ function addTimeListeners(input) {
 addTimeListeners(minutes);
 addTimeListeners(seconds);
 
-startActivityButton.addEventListener('click', function(event) {
-  checkInput(event);
-});
-
-startTimerButton.addEventListener('click', function(event) {
-  startCountdown();
-})
+startTimerButton.addEventListener('click', startCountdown);
 
 // Event Handlers
-function changeColor() {
+function changeColor(event) {
   event.preventDefault();
   if (event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active')) {
     activeButton = 'study';
@@ -104,10 +98,16 @@ function changeColor() {
 
 function checkInput(event) {
   event.preventDefault()
+  var throwsError = false;
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
       errors[i].classList.remove('hidden');
-    }
+      throwsError = true;
+    } 
+  }
+  //true means error
+  if(!throwsError) {
+    startActivity();
   }
 }
 
