@@ -23,7 +23,7 @@ const countdownTimer = document.querySelector('.js-countdown-timer');
 const startTimerButton = document.querySelector('.js-start-timer-button');
 
 // Past Activities Variables
-const pastActivitiesSection = document.querySelector('#pastActivitiesSection');
+const pastActivitiesSection = document.querySelector('#pastActivitiesBox');
 
 // Event Listeners
 studyButton.addEventListener('click', function(event) {
@@ -103,7 +103,7 @@ function checkInput(event) {
     if (inputs[i].value === "") {
       errors[i].classList.remove('hidden');
       throwsError = true;
-    } 
+    }
   }
   //true means error
   if(!throwsError) {

@@ -24,19 +24,19 @@ icon<!DOCTYPE html>
             </button>
             <button class="meditate-button-inactive js-meditate-button">
               <img src="./assets/meditate.svg" class="activity-icon js-meditate-icon-inactive" />
-              <img src="./assets/meditate-active.svg" class=" activity-icon js-meditate-icon-active hidden" />
+              <img src="./assets/meditate-active.svg" class="activity-icon js-meditate-icon-active hidden" />
               Meditate
             </button>
             <button class="exercise-button-inactive js-exercise-button">
               <img src="./assets/exercise.svg" class="activity-icon js-exercise-icon-inactive" />
-              <img src="./assets/exercise-active.svg" class=" activity-icon js-exercise-icon-active hidden" />
+              <img src="./assets/exercise-active.svg" class="activity-icon js-exercise-icon-active hidden" />
               Exercise
             </button>
           </div>
           <label>
             What would you like to accomplish during this time?
             <input type="text" name="goal" class="input js-input js-intention" />
-            <div class="hidden js-error-message">
+            <div class="error-message js-error-message hidden">
               <img src="./assets/warning.svg" class="error-icon" />
               <p>A description is required.</p>
             </div>
@@ -44,7 +44,7 @@ icon<!DOCTYPE html>
           <label>
             Minutes
             <input type="number" name="minutes" class="input js-input js-minutes" />
-            <div class="hidden js-error-message">
+            <div class="error-message js-error-message hidden">
               <img src="./assets/warning.svg" class="error-icon" />
               <p>Minutes are required.</p>
             </div>
@@ -52,7 +52,7 @@ icon<!DOCTYPE html>
           <label>
             Seconds
             <input type="number" name="seconds" class="input js-input js-seconds" />
-            <div class="hidden js-error-message">
+            <div class="error-message js-error-message hidden">
               <img src="./assets/warning.svg" class="error-icon" />
               <p>Seconds are required.</p>
             </div>
@@ -68,9 +68,11 @@ icon<!DOCTYPE html>
           <button class="start-timer-button js-start-timer-button">Start</button>
         </div>
       </section>
-      <section class="past-activities-section" id="jsPastActivitiesSection">
+      <section class="past-activities-section">
         <h2>Past Activities</h2>
-        <p>You haven't logged any activities yet. Complete the form to the left to get started!</p>
+        <div class="js-past-activities-list" id="jsPastActivitiesBox">
+          <p>You haven't logged any activities yet. Complete the form to the left to get started!</p>
+        </div>
       </section>
     </main>
   </body>

@@ -38,7 +38,7 @@ ol, ul {
 }
 blockquote, q {
 	quotes: none;
-}error
+}
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
@@ -74,6 +74,7 @@ main {
   display: grid;
   grid-template-columns: 60% 40%;
   color: #CBC9CF;
+  min-width: 650px;
 }
 
 header {
@@ -86,6 +87,7 @@ header,
 .current-activity-box {
   background-color: #46424D;
   color: #FFF;
+  border-radius: 5px;
 }
 
 header,
@@ -107,10 +109,12 @@ button {
 
 .new-activity-box {
   padding: 30px 50px 30px 50px;
+  min-width: 250px;
 }
 
 .past-activities-section {
-  margin-top: 20px;
+  margin-top: 19px;
+  min-width: 200px;
 }
 
 .current-activity-box {
@@ -121,8 +125,8 @@ button {
 }
 
 .activity-icon {
-  width: 50px;
-  height: 50px;
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,6 +144,8 @@ button {
   color: #FFF;
   border: 1px solid #FFF;
   border-radius: 5px;
+  min-width: 100px;
+  max-height: 50px;
 }
 
 .study-button-active {
@@ -171,9 +177,14 @@ button {
 
 .error-message {
   display: flex;
-  width: 300px;
+  min-width: 160px
   height: 10px;
   font-size: 12px;
+}
+
+.error-icon {
+  height: 10px;
+  width: 10px;
 }
 
 .start-timer-button {
