@@ -12,6 +12,7 @@ const exerciseIconActive = document.querySelector('.js-exercise-icon-active');
 const startActivityButton = document.querySelector('.js-start-activity-button');
 const inputs = document.querySelectorAll('.js-input');
 const errors = document.querySelectorAll('.js-error-message');
+const categoryError = document.querySelector('.js-category-error-message');
 const intention = document.querySelector('.js-intention');
 const minutes = document.querySelector('.js-minutes');
 let seconds = document.querySelector('.js-seconds');
@@ -99,15 +100,20 @@ function changeColor(event) {
 function checkInput(event) {
   event.preventDefault()
   var throwsError = false;
+  if (!activeButton) {
+    categoryError.classList.remove('hidden');
+    //throw error message but also move onto loop for addtl errors
+  }
+  // active button not asigned (falsy) to anything OR if the following if "", throw error
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
       errors[i].classList.remove('hidden');
       throwsError = true;
     }
   }
-  //true means error
-  if(!throwsError) {
-    startActivity();
+
+  if (!throwsError) {
+    startActivity(event);
   }
 }
 
