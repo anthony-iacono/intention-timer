@@ -1,5 +1,3 @@
-var activeButton;
-
 class Activity {
   constructor(category, description, minutes, seconds, completed, id) {
     this.category = category;

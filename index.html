@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+icon<!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
     <title>Intention Timer</title>
@@ -12,48 +12,48 @@
       <h1>Intention Timer</h1>
     </header>
     <main>
-      <form id="new-activity-form">
+      <form id="jsNewActivityForm">
         <h2>New Activity</h2>
         <div class="new-activity-box">
           <h3>Select a category:</h3>
           <div class="activity-buttons-box">
-            <button class="activity-button js-activity-button js-study-button">
-              <img src="./assets/study.svg" class="activity-image js-activity-button js-study-inactive-image js-study-button js-study-image" />
-              <img src="./assets/study-active.svg" class="hidden activity-image js-activity-button js-study-active-image js-study-button js-study-image" />
+            <button class="study-button-inactive js-study-button">
+              <img src="./assets/study.svg" class="activity-icon js-study-icon-inactive" />
+              <img src="./assets/study-active.svg" class="activity-icon js-study-icon-active hidden" />
               Study
             </button>
-            <button class="activity-button js-activity-button js-meditate-button">
-              <img src="./assets/meditate.svg" class="activity-image js-activity-button js-meditate-inactive-image js-meditate-image js-meditate-button" />
-              <img src="./assets/meditate-active.svg" class="hidden activity-image js-activity-button js-meditate-image js-meditate-active-image js-meditate-button" />
+            <button class="meditate-button-inactive js-meditate-button">
+              <img src="./assets/meditate.svg" class="activity-icon js-meditate-icon-inactive" />
+              <img src="./assets/meditate-active.svg" class=" activity-icon js-meditate-icon-active hidden" />
               Meditate
             </button>
-            <button class="activity-button js-activity-button js-exercise-button">
-              <img src="./assets/exercise.svg" class="activity-image js-activity-button js-exercise-image s-exercise-inactive-image js-exercise-button" />
-              <img src="./assets/exercise-active.svg" class="hidden activity-image js-activity-button js-exercise-image js-exercise-active-image js-exercise-button" />
+            <button class="exercise-button-inactive js-exercise-button">
+              <img src="./assets/exercise.svg" class="activity-icon js-exercise-icon-inactive" />
+              <img src="./assets/exercise-active.svg" class=" activity-icon js-exercise-icon-active hidden" />
               Exercise
             </button>
           </div>
           <label>
             What would you like to accomplish during this time?
-            <input type="text" name="goal" class="input js-input-text" />
-            <div class="hidden error-message js-error-message">
-              <img src="./assets/warning.svg" class="error-image" />
+            <input type="text" name="goal" class="input js-intention" />
+            <div class="hidden error-message">
+              <img src="./assets/warning.svg" class="error-icon" />
               <p>A description is required.</p>
             </div>
           </label>
           <label>
             Minutes
-            <input type="number" name="minutes" class="input js-input-number js-minutes" />
-            <div class="hidden error-message js-error-message">
-              <img src="./assets/warning.svg" class="error-image" />
+            <input type="number" name="minutes" class="input js-minutes" />
+            <div class="hidden error-message">
+              <img src="./assets/warning.svg" class="error-icon" />
               <p>Minutes are required.</p>
             </div>
           </label>
           <label>
             Seconds
-            <input type="number" name="seconds" class="input js-input-number js-seconds" />
-            <div class="hidden error-message js-error-message">
-              <img src="./assets/warning.svg" class="error-image" />
+            <input type="number" name="seconds" class="input js-seconds" />
+            <div class="hidden error-message">
+              <img src="./assets/warning.svg" class="error-icon" />
               <p>Seconds are required.</p>
             </div>
           </label>

@@ -101,6 +101,10 @@ h2 {
   padding-bottom: 10px;
 }
 
+button {
+  cursor: pointer;
+}
+
 .new-activity-box {
   padding: 30px 50px 30px 50px;
 }
@@ -116,7 +120,7 @@ h2 {
   align-items: center;
 }
 
-.activity-image {
+.activity-icon {
   width: 50px;
   height: 50px;
   display: flex;
@@ -129,25 +133,27 @@ h2 {
   justify-content: space-between;
 }
 
-.activity-button {
+.study-button-inactive,
+.meditate-button-inactive,
+.exercise-button-inactive {
   background-color: transparent;
   color: #FFF;
-  border: #FFF solid 1px;
+  border: 1px solid #FFF;
   border-radius: 5px;
 }
 
-.study-active-button {
-  border: #B3FD78 solid 1px;
+.study-button-active {
+  border: 1px solid #B3FD78;
   color: #B3FD78;
 }
 
-.meditate-active-button {
-  border: #C278FD solid 1px;
+.meditate-button-active {
+  border: 1px solid #C278FD;
   color: #C278FD;
 }
 
-.exercise-active-button {
-  border: #FD8078 solid 1px;
+.exercise-button-active {
+  border: 1px solid #FD8078;
   color: #FD8078;
 }
 

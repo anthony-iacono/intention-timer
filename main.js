@@ -1,12 +1,21 @@
 // Variables
-var newActivityForm = document.querySelector('form');
-var pastActivitiesSection = document.querySelector('section');
+const studyButton = document.querySelector('.js-study-button');
+const studyIconInactive = document.querySelector('.js-study-icon-inactive');
+const studyIconActive = document.querySelector('.js-study-icon-active');
+const meditateButton = document.querySelector('.js-meditate-button');
+const meditateIconInactive = document.querySelector('.js-meditate-icon-inactive');
+const meditateIconActive = document.querySelector('.js-meditate-icon-active');
+const exerciseButton = document.querySelector('.js-exercise-button');
+const exerciseIconInactive = document.querySelector('.js-exercise-icon-inactive');
+const exerciseIconActive = document.querySelector('.js-exercise-icon-active');
 
-var numberInput = document.querySelectorAll('.js-input-number');
+
+///////////////////
+
+var pastActivitiesSection = document.querySelector('section');
 var startActivityButton = document.querySelector('.js-start-activity-button');
-var intentionTextInput = document.querySelector('.js-input-text');
-var textErrorMessage = document.querySelectorAll('.js-text-error-message');
-var inputs = document.querySelectorAll('.input-box');
+var intention = document.querySelector('.js-intention');
+var inputs = document.querySelectorAll('.input');
 var errors = document.querySelectorAll('.js-error-message');
 var minutes = document.querySelector('.js-minutes');
 var seconds = document.querySelector('.js-seconds');
@@ -14,34 +23,44 @@ var seconds = document.querySelector('.js-seconds');
 var startTimerButton = document.querySelector('.js-start-timer-button');
 var timerSection = document.querySelector('.js-current-activity-section');
 var countdownTimer = document.querySelector('.js-countdown-timer');
-var activeButton
 
 // Event Listeners
-newActivityForm.addEventListener('click', function(event) {
-  event.preventDefault();
-  if (event.target.classList.contains('js-activity-button')) {
-    changeColor();
-  } else if (event.target.classList.contains('js-start-activity-button')) {
-    addActivity();
-    document.querySelector('form').classList.add('hidden');
-    document.querySelector('.js-current-activity-section').classList.remove('hidden');
-    // let seconds = seconds.value;
-    countdownTimer.innerText = `${minutes.value}:${seconds.value}`;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
+studyButton.addEventListener('click', function(event) {
+  changeColor(event);
+});
+meditateButton.addEventListener('click', function(event) {
+  changeColor(event);
+});
+exerciseButton.addEventListener('click', function(event) {
+  changeColor(event);
+});
 
-  //if select catergory, this:
-    if (activeButton === "study") {
-      startTimerButton.classList.add('study-border');
-    } else if (activeButton === "meditate") {
-      startTimerButton.classList.add('meditate-border');
-    } else if (activeButton === "exercise") {
-      startTimerButton.classList.add('exercise-border');
-    }
-  }
-})
+///////////////////
 
-numberInput.forEach(addNumberListeners)
-function addNumberListeners(input) {
+// newActivityFormX.addEventListener('click', function(event) {
+//   event.preventDefault();
+//   if (event.target.classList.contains('js-activity-button')) {
+//     changeColor();
+//   } else if (event.target.classList.contains('js-start-activity-button')) {
+//     addActivity();
+//     document.querySelector('form').classList.add('hidden');
+//     document.querySelector('.js-current-activity-section').classList.remove('hidden');
+//     // let seconds = seconds.value;
+//     countdownTimer.innerText = `${minutes.value}:${seconds.value}`;
+//     seconds = seconds < 10 ? '0' + seconds : seconds;
+//
+//   //if select catergory, this:
+//     if (activeButton === "study") {
+//       startTimerButton.classList.add('study-border');
+//     } else if (activeButton === "meditate") {
+//       startTimerButton.classList.add('meditate-border');
+//     } else if (activeButton === "exercise") {
+//       startTimerButton.classList.add('exercise-border');
+//     }
+//   }
+// })
+
+function addTimeListeners(input) {
   input.addEventListener("keydown", function(event) {
     var invalidChars = ["-", "e", "+", "E"];
     if (invalidChars.includes(event.key)) {
@@ -50,7 +69,10 @@ function addNumberListeners(input) {
   })
 };
 
-startActivityButton.addEventListener('click', function(event){
+addTimeListeners(minutes);
+addTimeListeners(seconds);
+
+startActivityButton.addEventListener('click', function(event) {
   checkInput(event);
 });
 
@@ -59,26 +81,24 @@ timerSection.addEventListener('click', function(event) {
     startCountdown();
 })
 
-//Event Handlers
+// Event Handlers
 function changeColor() {
-  if (event.target.classList.contains('js-study-button')) {
-    document.querySelectorAll('.js-study-image').forEach(
-      icon => icon.classList.toggle('hidden')
-    );
-    document.querySelector('.js-study-button').classList.toggle('study-active-button');
+  event.preventDefault();
+  if (event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active')) {
     activeButton = 'study';
-  } else if (event.target.classList.contains('js-meditate-button')) {
-    document.querySelectorAll('.js-meditate-image').forEach(
-      icon => icon.classList.toggle('hidden')
-    );
-    document.querySelector('.js-meditate-button').classList.toggle('meditate-active-button');
+    studyButton.classList.toggle('study-button-active');
+    studyIconInactive.classList.toggle('hidden');
+    studyIconActive.classList.toggle('hidden');
+  } else if (event.target.matches('.js-meditate-button') || event.target.matches('.js-meditate-icon-inactive') || event.target.matches('.js-meditate-icon-active')) {
     activeButton = 'meditate';
-  } else if (event.target.classList.contains('js-exercise-button')) {
-    document.querySelectorAll('.js-exercise-image').forEach(
-      icon => icon.classList.toggle('hidden')
-    );
-    document.querySelector('.js-exercise-button').classList.toggle('exercise-active-button');
+    meditateButton.classList.toggle('meditate-button-active');
+    meditateIconInactive.classList.toggle('hidden');
+    meditateIconActive.classList.toggle('hidden');
+  } else if (event.target.matches('.js-exercise-button') || event.target.matches('.js-exercise-icon-inactive') || event.target.matches('.js-exercise-icon-active')) {
     activeButton = 'exercise';
+    exerciseButton.classList.toggle('exercise-button-active');
+    exerciseIconInactive.classList.toggle('hidden');
+    exerciseIconActive.classList.toggle('hidden');
   }
 };
 
@@ -92,7 +112,7 @@ function checkInput(event) {
 }
 
 function addActivity() {
-  let activity = new Activity(activeButton, intentionTextInput.value, minutes.value, seconds.value, false, (Date.now() + Math.round(Math.random() * 10)));
+  let activity = new Activity(activeButton, intention.value, minutes.value, seconds.value, false, (Date.now() + Math.round(Math.random() * 10)));
   activities.push(activity);
 }
 
@@ -117,3 +137,5 @@ function startCountdown() {
     time--;
   }
 }
+
+// Helper Functions
