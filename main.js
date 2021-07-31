@@ -1,4 +1,5 @@
-// Variables
+// New Activity Variables
+const newActivityForm = document.querySelector('#jsNewActivityForm');
 const studyButton = document.querySelector('.js-study-button');
 const studyIconInactive = document.querySelector('.js-study-icon-inactive');
 const studyIconActive = document.querySelector('.js-study-icon-active');
@@ -9,26 +10,20 @@ const exerciseButton = document.querySelector('.js-exercise-button');
 const exerciseIconInactive = document.querySelector('.js-exercise-icon-inactive');
 const exerciseIconActive = document.querySelector('.js-exercise-icon-active');
 const startActivityButton = document.querySelector('.js-start-activity-button');
-const newActivityForm = document.querySelector('#jsNewActivityForm');
-const currentActivitySection = document.querySelector('#jsCurrentActivitySection');
+const inputs = document.querySelectorAll('.js-input');
+const errors = document.querySelectorAll('.js-error-message');
 const intention = document.querySelector('.js-intention');
-const currentIntention = document.querySelector('.js-current-intention');
-
-// Timer Variables
-const countdownTimer = document.querySelector('.js-countdown-timer');
 const minutes = document.querySelector('.js-minutes');
 let seconds = document.querySelector('.js-seconds');
 
-///////////////////
+// Current Activity Variables
+const currentActivitySection = document.querySelector('#jsCurrentActivitySection');
+const currentIntention = document.querySelector('.js-current-intention');
+const countdownTimer = document.querySelector('.js-countdown-timer');
+const startTimerButton = document.querySelector('.js-start-timer-button');
 
-var pastActivitiesSection = document.querySelector('section');
-var inputs = document.querySelectorAll('.input');
-var errors = document.querySelectorAll('.js-error-message');
-
-
-var startTimerButton = document.querySelector('.js-start-timer-button');
-var timerSection = document.querySelector('.js-current-activity-section');
-
+// Past Activities Variables
+const pastActivitiesSection = document.querySelector('#pastActivitiesSection');
 
 // Event Listeners
 studyButton.addEventListener('click', function(event) {
@@ -43,8 +38,6 @@ exerciseButton.addEventListener('click', function(event) {
 startActivityButton.addEventListener('click', function(event) {
   startActivity(event);
 });
-
-///////////////////
 
 function startActivity() {
   event.preventDefault();
@@ -84,10 +77,9 @@ startActivityButton.addEventListener('click', function(event) {
   checkInput(event);
 });
 
-// timerSection.addEventListener('click', function(event) {
-//   if (event.target.classList.contains('js-start-timer-button'))
-//     startCountdown();
-// })
+startTimerButton.addEventListener('click', function(event) {
+  startCountdown();
+})
 
 // Event Handlers
 function changeColor() {
