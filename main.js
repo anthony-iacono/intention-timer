@@ -5,14 +5,14 @@ var pastActivitiesSection = document.querySelector('section');
 var numberInput = document.querySelectorAll('.js-input-number');
 var startActivityButton = document.querySelector('.js-start-activity-button');
 var intentionTextInput = document.querySelector('.js-input-text');
-var textWarningMessage = document.querySelectorAll('.js-text-warning-message');
+var textErrorMessage = document.querySelectorAll('.js-text-error-message');
 var inputs = document.querySelectorAll('.input-box');
-var warnings = document.querySelectorAll('.js-warning-message');
+var errors = document.querySelectorAll('.js-error-message');
 var minutes = document.querySelector('.js-minutes');
 var seconds = document.querySelector('.js-seconds');
 
 var startTimerButton = document.querySelector('.js-start-timer-button');
-var timerSection = document.querySelector('.js-timer-section');
+var timerSection = document.querySelector('.js-current-activity-section');
 var countdownTimer = document.querySelector('.js-countdown-timer');
 var activeButton
 
@@ -24,11 +24,11 @@ newActivityForm.addEventListener('click', function(event) {
   } else if (event.target.classList.contains('js-start-activity-button')) {
     addActivity();
     document.querySelector('form').classList.add('hidden');
-    document.querySelector('.js-timer-section').classList.remove('hidden');
+    document.querySelector('.js-current-activity-section').classList.remove('hidden');
     // let seconds = seconds.value;
     countdownTimer.innerText = `${minutes.value}:${seconds.value}`;
     seconds = seconds < 10 ? '0' + seconds : seconds;
-    
+
   //if select catergory, this:
     if (activeButton === "study") {
       startTimerButton.classList.add('study-border');
@@ -86,7 +86,7 @@ function checkInput(event) {
   event.preventDefault()
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
-      warnings[i].classList.remove('hidden');
+      errors[i].classList.remove('hidden');
     }
   }
 }

@@ -1,16 +1,3 @@
-/* *  COLORS */
-/* Main background: #2B2733
-Text on main background: #CBC9CF
-Header, cards: #46424D
-Card shadow: #26222D
-Text on header and cards: #FFF
-Study: #B3FD78
-Meditate: #C278FD
-Exercise: #FD8078
-Error: #EFB7EC */
-
-/* font-family: 'Montserrat', sans-serif; */
-
 /* http://meyerweb.com/eric/tools/css/reset/
    v2.0 | 20110126
    License: none (public domain)
@@ -37,6 +24,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
@@ -50,7 +38,7 @@ ol, ul {
 }
 blockquote, q {
 	quotes: none;
-}
+}error
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
@@ -61,35 +49,43 @@ table {
 	border-spacing: 0;
 }
 
-/* RESET ^^^^^^^ */
+/* RESET ABOVE */
+
+/*
+COLORS
+Background, main: #2B2733
+Text, main: #CBC9CF
+Background, header and cards: #46424D
+Text header and cards: #FFF
+Shadow, card: #26222D
+Study: #B3FD78
+Meditate: #C278FD
+Exercise: #FD8078
+Text, error: #EFB7EC
+font-family: 'Montserrat', sans-serif;
+*/
 
 body {
   font-family: 'Montserrat', sans-serif;
+  background-color: #2B2733;
 }
 
 main {
   display: grid;
   grid-template-columns: 60% 40%;
-  /* grid-column-gap: 5px; */
-  grid-template-rows: 100%;
-  /* grid-auto-rows: minmax(100px, auto); */
-  background-color: #2B2733;
-  color: #CBC9CF
- }
-
-header,
-.activity-box {
-  background-color: #46424D;
-  color: #FFF;
-}
-
-h2 {
-  padding-bottom: 10px;
+  color: #CBC9CF;
 }
 
 header {
   text-align: center;
-  padding: 20px 0px 20px 0px;
+  padding: 20px 0px;
+}
+
+header,
+.new-activity-box,
+.current-activity-box {
+  background-color: #46424D;
+  color: #FFF;
 }
 
 header,
@@ -97,30 +93,47 @@ header,
   text-transform: uppercase;
 }
 
+form {
+  margin: 20px;
+}
+
+h2 {
+  padding-bottom: 10px;
+}
+
+.new-activity-box {
+  padding: 30px 50px 30px 50px;
+}
+
+.past-activities-section {
+  margin-top: 20px;
+}
+
+.current-activity-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 
 .activity-image {
   width: 50px;
   height: 50px;
   display: flex;
-  justify -content: center;
+  justify-content: center;
   align-items: center;
 }
 
-.new-activity-form,
-.past-activities-section {
-
-}
-
-.activity-buttons {
+.activity-buttons-box {
   display: flex;
   justify-content: space-between;
 }
 
 .activity-button {
   background-color: transparent;
+  color: #FFF;
   border: #FFF solid 1px;
   border-radius: 5px;
-  color: #FFF;
 }
 
 .study-active-button {
@@ -138,37 +151,20 @@ header,
   color: #FD8078;
 }
 
-form {
-  margin: 20px;
-}
-
-.activity-box {
-  padding: 30px 50px 30px 50px;
-}
-
-.input-box {
+.input {
   background-color: transparent;
+  color: #FFF;
   border: none;
   border-bottom: #FFF solid 1px;
-  color: #FFF;
 }
 
 .start-activity-button {
   color: #46424D;
-  padding: 3px 20px 3px 20px;
+  padding: 3px 20px;
 }
 
-.past-activities-section {
-  margin-top: 20px;
-}
-
-.hidden {
-  display: none;
-}
-
-.warning-message {
+.error-message {
   display: flex;
-  /* align-items: center; */
   width: 300px;
   height: 10px;
   font-size: 12px;
@@ -184,14 +180,6 @@ form {
   text-transform: uppercase;
 }
 
-.timer-box {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-
-}
-
 .study-border {
   border-color: #B3FD78;
 }
@@ -202,4 +190,8 @@ form {
 
 .exercise-border {
   border-color: #FD8078;
+}
+
+.hidden {
+  display: none;
 }
