@@ -1,3 +1,3 @@
-let activeButton;
+let activeButton = "";
 
 const activities = [];

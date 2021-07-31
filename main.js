@@ -79,23 +79,76 @@ startTimerButton.addEventListener('click', startCountdown);
 // Event Handlers
 function changeColor(event) {
   event.preventDefault();
-  if (event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active')) {
-    activeButton = 'study';
-    studyButton.classList.toggle('study-button-active');
-    studyIconInactive.classList.toggle('hidden');
-    studyIconActive.classList.toggle('hidden');
-  } else if (event.target.matches('.js-meditate-button') || event.target.matches('.js-meditate-icon-inactive') || event.target.matches('.js-meditate-icon-active')) {
-    activeButton = 'meditate';
-    meditateButton.classList.toggle('meditate-button-active');
-    meditateIconInactive.classList.toggle('hidden');
-    meditateIconActive.classList.toggle('hidden');
-  } else if (event.target.matches('.js-exercise-button') || event.target.matches('.js-exercise-icon-inactive') || event.target.matches('.js-exercise-icon-active')) {
-    activeButton = 'exercise';
-    exerciseButton.classList.toggle('exercise-button-active');
-    exerciseIconInactive.classList.toggle('hidden');
-    exerciseIconActive.classList.toggle('hidden');
+
+  var isStudySelected = event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active');
+  var isMeditateSelected = event.target.matches('.js-meditate-button') || event.target.matches('.js-meditate-icon-inactive') || event.target.matches('.js-meditate-icon-active');
+  var isExerciseSelected = event.target.matches('.js-exercise-button') || event.target.matches('.js-exercise-icon-inactive') || event.target.matches('.js-exercise-icon-active');
+  
+  if (isStudySelected) {
+    handleStudySelection();
+  } else if (isMeditateSelected) {
+    handleMeditateSelection();
+  } else if (isExerciseSelected) {
+    handleExerciseSelection();
   }
 };
+
+function handleStudySelection() {
+  if (activeButton === "meditate") {
+    toggleMeditate();
+  }
+  if (activeButton === "exercise") {
+    toggleExercise();
+  }
+
+  activeButton = "study";
+  toggleStudy();
+};
+
+function handleMeditateSelection() {
+  if (activeButton === "study") {
+    toggleStudy();
+  }
+  if (activeButton === "exercise") {
+    toggleExercise();
+  }
+
+  activeButton = 'meditate';
+  toggleMeditate();
+};
+
+function handleExerciseSelection() {
+  if (activeButton === "study") {
+    toggleStudy();
+  }
+  if (activeButton === "meditate") {
+    toggleMeditate();
+  }
+
+  activeButton = 'exercise';
+  toggleExercise();
+};
+
+function toggleStudy() {
+  studyButton.classList.toggle('study-button-active');
+  studyIconInactive.classList.toggle('hidden');
+  studyIconActive.classList.toggle('hidden');
+};
+
+function toggleMeditate() {
+  meditateButton.classList.toggle('meditate-button-active');
+  meditateIconInactive.classList.toggle('hidden');
+  meditateIconActive.classList.toggle('hidden');
+};
+
+function toggleExercise() {
+  exerciseButton.classList.toggle('exercise-button-active');
+  exerciseIconInactive.classList.toggle('hidden');
+  exerciseIconActive.classList.toggle('hidden');
+};
+
+
+//create one function for each category (toggleStudy, toggleMeditate, toggleExercise....do not need to pass event)
 
 function checkInput(event) {
   event.preventDefault()
