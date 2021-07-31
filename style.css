@@ -173,3 +173,33 @@ form {
   height: 10px;
   font-size: 12px;
 }
+
+.start-timer-button {
+  border-radius: 50%;
+  background-color: transparent;
+  border: solid 3px;
+  color: #fff;
+  height: 200px;
+  width: 200px;
+  text-transform: uppercase;
+}
+
+.timer-box {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.study-border {
+  border-color: #B3FD78;
+}
+
+.meditate-border {
+  border-color: #C278FD;
+}
+
+.exercise-border {
+  border-color: #FD8078;
+}

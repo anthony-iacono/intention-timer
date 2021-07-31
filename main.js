@@ -11,8 +11,10 @@ var warnings = document.querySelectorAll('.js-warning-message');
 var minutes = document.querySelector('.js-minutes');
 var seconds = document.querySelector('.js-seconds');
 
+var startTimerButton = document.querySelector('.js-start-timer-button');
 var timerSection = document.querySelector('.js-timer-section');
-const countdownTimer = document.querySelector('.js-countdown-timer');
+var countdownTimer = document.querySelector('.js-countdown-timer');
+var activeButton
 
 // Event Listeners
 newActivityForm.addEventListener('click', function(event) {
@@ -23,8 +25,18 @@ newActivityForm.addEventListener('click', function(event) {
     addActivity();
     document.querySelector('form').classList.add('hidden');
     document.querySelector('.js-timer-section').classList.remove('hidden');
-
-
+    // let seconds = seconds.value;
+    countdownTimer.innerText = `${minutes.value}:${seconds.value}`;
+    seconds = seconds < 10 ? '0' + seconds : seconds;
+    
+  //if select catergory, this:
+    if (activeButton === "study") {
+      startTimerButton.classList.add('study-border');
+    } else if (activeButton === "meditate") {
+      startTimerButton.classList.add('meditate-border');
+    } else if (activeButton === "exercise") {
+      startTimerButton.classList.add('exercise-border');
+    }
   }
 })
 
@@ -74,7 +86,7 @@ function checkInput(event) {
   event.preventDefault()
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
-      warnings[i].classList.remove('hidden');activeButton = 'study';
+      warnings[i].classList.remove('hidden');
     }
   }
 }
