@@ -8,21 +8,27 @@ const meditateIconActive = document.querySelector('.js-meditate-icon-active');
 const exerciseButton = document.querySelector('.js-exercise-button');
 const exerciseIconInactive = document.querySelector('.js-exercise-icon-inactive');
 const exerciseIconActive = document.querySelector('.js-exercise-icon-active');
+const startActivityButton = document.querySelector('.js-start-activity-button');
+const newActivityForm = document.querySelector('#jsNewActivityForm');
+const currentActivitySection = document.querySelector('#jsCurrentActivitySection');
+const intention = document.querySelector('.js-intention');
+const currentIntention = document.querySelector('.js-current-intention');
 
+// Timer Variables
+const countdownTimer = document.querySelector('.js-countdown-timer');
+const minutes = document.querySelector('.js-minutes');
+let seconds = document.querySelector('.js-seconds');
 
 ///////////////////
 
 var pastActivitiesSection = document.querySelector('section');
-var startActivityButton = document.querySelector('.js-start-activity-button');
-var intention = document.querySelector('.js-intention');
 var inputs = document.querySelectorAll('.input');
 var errors = document.querySelectorAll('.js-error-message');
-var minutes = document.querySelector('.js-minutes');
-var seconds = document.querySelector('.js-seconds');
+
 
 var startTimerButton = document.querySelector('.js-start-timer-button');
 var timerSection = document.querySelector('.js-current-activity-section');
-var countdownTimer = document.querySelector('.js-countdown-timer');
+
 
 // Event Listeners
 studyButton.addEventListener('click', function(event) {
@@ -34,31 +40,33 @@ meditateButton.addEventListener('click', function(event) {
 exerciseButton.addEventListener('click', function(event) {
   changeColor(event);
 });
+startActivityButton.addEventListener('click', function(event) {
+  startActivity(event);
+});
 
 ///////////////////
 
-// newActivityFormX.addEventListener('click', function(event) {
-//   event.preventDefault();
-//   if (event.target.classList.contains('js-activity-button')) {
-//     changeColor();
-//   } else if (event.target.classList.contains('js-start-activity-button')) {
-//     addActivity();
-//     document.querySelector('form').classList.add('hidden');
-//     document.querySelector('.js-current-activity-section').classList.remove('hidden');
-//     // let seconds = seconds.value;
-//     countdownTimer.innerText = `${minutes.value}:${seconds.value}`;
-//     seconds = seconds < 10 ? '0' + seconds : seconds;
-//
-//   //if select catergory, this:
-//     if (activeButton === "study") {
-//       startTimerButton.classList.add('study-border');
-//     } else if (activeButton === "meditate") {
-//       startTimerButton.classList.add('meditate-border');
-//     } else if (activeButton === "exercise") {
-//       startTimerButton.classList.add('exercise-border');
-//     }
-//   }
-// })
+function startActivity() {
+  event.preventDefault();
+  addActivity();
+  newActivityForm.classList.add('hidden');
+  currentActivitySection.classList.remove('hidden');
+  if (seconds.value < 10) {
+    countdownTimer.innerText = `${minutes.value}:0${seconds.value}`;
+  } else {
+    countdownTimer.innerText = `${minutes.value}:${seconds.value}`;
+  }
+
+  currentIntention.innerText = intention.value;
+
+  if (activeButton === "study") {
+    startTimerButton.classList.add('study-border');
+  } else if (activeButton === "meditate") {
+    startTimerButton.classList.add('meditate-border');
+  } else if (activeButton === "exercise") {
+    startTimerButton.classList.add('exercise-border');
+  }
+}
 
 function addTimeListeners(input) {
   input.addEventListener("keydown", function(event) {
@@ -76,10 +84,10 @@ startActivityButton.addEventListener('click', function(event) {
   checkInput(event);
 });
 
-timerSection.addEventListener('click', function(event) {
-  if (event.target.classList.contains('js-start-timer-button'))
-    startCountdown();
-})
+// timerSection.addEventListener('click', function(event) {
+//   if (event.target.classList.contains('js-start-timer-button'))
+//     startCountdown();
+// })
 
 // Event Handlers
 function changeColor() {
@@ -120,7 +128,7 @@ function addActivity() {
 function startCountdown() {
   setInterval(updateCountdown, 1000);
   let startingMinutes = minutes.value;
-  let startingSeconds = seconds.value
+  let startingSeconds = seconds.value;
   let time = parseInt(startingMinutes * 60) + parseInt(startingSeconds);
 
   function updateCountdown() {
