@@ -2,55 +2,85 @@
 <html lang="en" dir="ltr">
   <head>
     <title>Intention Timer</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="style.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
-
   </head>
   <body>
     <header>
       <h1>Intention Timer</h1>
     </header>
     <main>
-      <form class="new-activity-form">
+      <form id="jsNewActivityForm">
         <h2>New Activity</h2>
-        <div class="activity-box">
+        <div class="new-activity-box">
           <h3>Select a category:</h3>
-          <div class="activity-buttons">
-            <button class="activity-button">
-              <img src="./assets/study.svg" class="activity-image" />
+          <div class="activity-buttons-box">
+            <button class="study-button-inactive js-study-button">
+              <img src="./assets/study.svg" class="activity-icon js-study-icon-inactive" />
+              <img src="./assets/study-active.svg" class="activity-icon js-study-icon-active hidden" />
               Study
             </button>
-            <button class="activity-button">
-              <img src="./assets/meditate.svg" class="activity-image" />
+            <button class="meditate-button-inactive js-meditate-button">
+              <img src="./assets/meditate.svg" class="activity-icon js-meditate-icon-inactive" />
+              <img src="./assets/meditate-active.svg" class="activity-icon js-meditate-icon-active hidden" />
               Meditate
             </button>
-            <button class="activity-button">
-              <img src="./assets/exercise.svg" class="activity-image" />
+            <button class="exercise-button-inactive js-exercise-button">
+              <img src="./assets/exercise.svg" class="activity-icon js-exercise-icon-inactive" />
+              <img src="./assets/exercise-active.svg" class="activity-icon js-exercise-icon-active hidden" />
               Exercise
             </button>
+            <div class="error-message js-category-error-message hidden">
+              <img src="./assets/warning.svg" class="error-icon" />
+              <p>A category is required.</p>
+            </div>
           </div>
           <label>
             What would you like to accomplish during this time?
-            <input type="text" name="goal" class="input-box" />
+            <input type="text" name="goal" class="input js-input js-intention" />
+            <div class="error-message js-error-message hidden">
+              <img src="./assets/warning.svg" class="error-icon" />
+              <p>A description is required.</p>
+            </div>
           </label>
           <label>
             Minutes
-            <input type="text" name="minutes" class="input-box" />
+            <input type="number" name="minutes" class="input js-input js-minutes" />
+            <div class="error-message js-error-message hidden">
+              <img src="./assets/warning.svg" class="error-icon" />
+              <p>Minutes are required.</p>
+            </div>
           </label>
           <label>
             Seconds
-            <input type="text" name="Seconds" class="input-box" />
+            <input type="number" name="seconds" class="input js-input js-seconds" />
+            <div class="error-message js-error-message hidden">
+              <img src="./assets/warning.svg" class="error-icon" />
+              <p>Seconds are required.</p>
+            </div>
           </label>
-          <button class="start-activity-button">Start Activity</button>
+          <button class="start-activity-button js-start-activity-button">Start Activity</button>
         </div>
       </form>
+      <section class="hidden" id="jsCurrentActivitySection">
+        <h2>Current Activity</h2>
+        <div class="current-activity-box">
+          <p class="activity-description js-current-intention"></p>
+          <p class="js-countdown-timer"></p>
+          <button class="start-timer-button js-start-timer-button">Start</button>
+        </div>
+      </section>
       <section class="past-activities-section">
         <h2>Past Activities</h2>
-        <p>You haven't logged any activities yet. Complete the form to the left to get started!</p>
+        <div class="js-past-activities-list" id="jsPastActivitiesBox">
+          <p>You haven't logged any activities yet. Complete the form to the left to get started!</p>
+        </div>
       </section>
     </main>
   </body>
   <script type="text/javascript" src="main.js"></script>
+  <script type="text/javascript" src="Activity.js"></script>
+  <script type="text/javascript" src="data.js"></script>
 </html>
