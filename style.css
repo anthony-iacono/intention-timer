@@ -79,7 +79,7 @@ main {
 
 header {
   text-align: center;
-  padding: 20px 0px;
+  padding: 15px 0px;
 }
 
 header,
@@ -97,6 +97,7 @@ header,
 
 form {
   margin: 20px;
+  min-width: 570px;
 }
 
 h2 {
@@ -107,9 +108,22 @@ button {
   cursor: pointer;
 }
 
+.category-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75px;
+  width: 400px;
+}
+
 .new-activity-box {
-  padding: 30px 50px 30px 50px;
-  min-width: 250px;
+  min-height: 370px;
+  min-width: 540px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 30px 50px;
 }
 
 .past-activities-section {
@@ -127,25 +141,32 @@ button {
 .activity-icon {
   width: 20px;
   height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-bottom: 2px;
 }
 
 .activity-buttons-box {
+  height: 75px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
+
 }
 
 .study-button-inactive,
 .meditate-button-inactive,
 .exercise-button-inactive {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0px;
   background-color: transparent;
   color: #FFF;
   border: 1px solid #FFF;
   border-radius: 5px;
-  min-width: 100px;
-  max-height: 50px;
+  width: 100px;
+  height: 45px;
+  /* max-height: 70px; */
 }
 
 .study-button-active {
