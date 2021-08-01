@@ -14,7 +14,7 @@ const inputs = document.querySelectorAll('.js-input');
 const errors = document.querySelectorAll('.js-error-message');
 const categoryError = document.querySelector('.js-category-error-message');
 const intention = document.querySelector('.js-intention');
-const minutes = document.querySelector('.js-minutes');
+let minutes = document.querySelector('.js-minutes');
 let seconds = document.querySelector('.js-seconds');
 
 // Current Activity Variables
@@ -46,10 +46,12 @@ function startActivity(event) {
   newActivityForm.classList.add('hidden');
   currentActivitySection.classList.remove('hidden');
   if (seconds.value < 10) {
-    countdownTimer.innerText = `${minutes.value}:0${seconds.value}`;
-  } else {
-    countdownTimer.innerText = `${minutes.value}:${seconds.value}`;
+    seconds = 0 + seconds.value
   }
+  if (minutes.value < 10) {
+    minutes = 0 + minutes.value
+  }
+  countdownTimer.innerText = `${minutes}:${seconds}`;
 
   currentIntention.innerText = intention.value;
 
@@ -83,7 +85,7 @@ function changeColor(event) {
   var isStudySelected = event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active');
   var isMeditateSelected = event.target.matches('.js-meditate-button') || event.target.matches('.js-meditate-icon-inactive') || event.target.matches('.js-meditate-icon-active');
   var isExerciseSelected = event.target.matches('.js-exercise-button') || event.target.matches('.js-exercise-icon-inactive') || event.target.matches('.js-exercise-icon-active');
-  
+
   if (isStudySelected) {
     handleStudySelection();
   } else if (isMeditateSelected) {
@@ -176,20 +178,25 @@ function addActivity() {
 }
 
 // Countdown Timer
+// REFACTOR: PREVENT START BUTTON FROM BEING CLICKED MORE THAN ONCE
+// ADJUST START DELAY TIME (COUNT IN SECONDS FOR ALL NUMBERS 9 AND 2)
 function startCountdown() {
-  setInterval(updateCountdown, 1000);
-  let startingMinutes = minutes.value;
-  let startingSeconds = seconds.value;
-  let time = parseInt(startingMinutes * 60) + parseInt(startingSeconds);
+  let timerInterval = setInterval(updateCountdown, 1000);
+
+  let time = parseInt(minutes * 60) + parseInt(seconds);
 
   function updateCountdown() {
+
     if (time < 0) {
+      countdownTimer.innerText = "00:00";
+      alert("Times up! Activity completed.");
+      clearInterval(timerInterval);
       return;
     }
 
-    const minutes = Math.floor(time / 60);
+    let minutes = Math.floor(time / 60);
     let seconds = time % 60;
-
+    minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
     countdownTimer.innerHTML = `${minutes}:${seconds}`;
