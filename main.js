@@ -27,6 +27,7 @@ const logActivityButton = document.querySelector('.js-log-activity-button');
 // Past Activities Variables
 const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
 
+
 // Event Listeners
 studyButton.addEventListener('click', function(event) {
   changeColor(event);
@@ -44,13 +45,27 @@ logActivityButton.addEventListener('click', logActivity);
 
 function logActivity() {
   let currentActivity = activities[activities.length -1];
+
   jsPastActivitiesList.innerHTML += `
-  <article class="activity-card">
-  <p class="activity-category">${currentActivity.category}</p>
-  <p class="activity-time">${currentActivity.minutes} MIN ${currentActivity.seconds} SECONDS</p>
-  <p class="activity-description">${currentActivity.description}</p>
-  </article>
+  <div class="activity-card">
+    <article class="activity-card-content">
+      <p class="activity-category">${currentActivity.category}</p>
+      <p class="activity-time">${currentActivity.minutes} MIN ${currentActivity.seconds} SECONDS</p>
+      <p class="activity-description">${currentActivity.description}</p>
+    </article>
+    <div class="activity-card-marker" id="${currentActivity.category}"></div>
+  </div>
   `
+
+  let currentActivityCardMarker = document.getElementById(currentActivity.category);
+
+  if (activeButton === "study") {
+    currentActivityCardMarker.classList.add('activity-card-marker-study');
+  } else if (activeButton === "meditate") {
+    currentActivityCardMarker.classList.add('activity-card-marker-meditate');
+  } else if (activeButton === "exercise") {
+    currentActivityCardMarker.classList.add('activity-card-marker-exercise');
+  }
 }
 
 function startActivity(event) {

@@ -1,6 +1,5 @@
-let activeButton = "";
+let activeButton;
 
 const activities = [];
 
-
-var isTimerActive = false;
+let isTimerActive = false;
