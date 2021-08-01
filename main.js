@@ -22,9 +22,10 @@ const currentActivitySection = document.querySelector('#jsCurrentActivitySection
 const currentIntention = document.querySelector('.js-current-intention');
 const countdownTimer = document.querySelector('.js-countdown-timer');
 const startTimerButton = document.querySelector('.js-start-timer-button');
+const logActivityButton = document.querySelector('.js-log-activity-button');
 
 // Past Activities Variables
-const pastActivitiesSection = document.querySelector('#pastActivitiesBox');
+const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
 
 // Event Listeners
 studyButton.addEventListener('click', function(event) {
@@ -39,6 +40,18 @@ exerciseButton.addEventListener('click', function(event) {
 startActivityButton.addEventListener('click', function(event) {
   checkInput(event);
 });
+logActivityButton.addEventListener('click', logActivity);
+
+function logActivity() {
+  let currentActivity = activities[activities.length -1];
+  jsPastActivitiesList.innerHTML += `
+  <article class="activity-card">
+  <p class="activity-category">${currentActivity.category}</p>
+  <p class="activity-time">${currentActivity.minutes} MIN ${currentActivity.seconds} SECONDS</p>
+  <p class="activity-description">${currentActivity.description}</p>
+  </article>
+  `
+}
 
 function startActivity(event) {
   event.preventDefault();
@@ -47,6 +60,8 @@ function startActivity(event) {
   currentActivitySection.classList.remove('hidden');
   if (seconds.value < 10) {
     seconds = 0 + seconds.value
+  } else {
+    seconds = seconds.value;
   }
   if (minutes.value < 10) {
     minutes = 0 + minutes.value
@@ -181,15 +196,18 @@ function addActivity() {
 // REFACTOR: PREVENT START BUTTON FROM BEING CLICKED MORE THAN ONCE
 // ADJUST START DELAY TIME (COUNT IN SECONDS FOR ALL NUMBERS 9 AND 2)
 function startCountdown() {
+  if (isTimerActive) {
+    return;
+  }
+  isTimerActive = true;
   let timerInterval = setInterval(updateCountdown, 1000);
 
   let time = parseInt(minutes * 60) + parseInt(seconds);
 
   function updateCountdown() {
-
     if (time < 0) {
       countdownTimer.innerText = "00:00";
-      alert("Times up! Activity completed.");
+      startTimerButton.innerText = "COMPLETE!";
       clearInterval(timerInterval);
       return;
     }
