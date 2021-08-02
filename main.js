@@ -14,8 +14,10 @@ const inputs = document.querySelectorAll('.js-input');
 const errors = document.querySelectorAll('.js-error-message');
 const categoryError = document.querySelector('.js-category-error-message');
 const intention = document.querySelector('.js-intention');
-let minutes = document.querySelector('.js-minutes');
-let seconds = document.querySelector('.js-seconds');
+const minutesInput = document.querySelector('.js-minutes');
+const secondsInput = document.querySelector('.js-seconds');
+let minutes;
+let seconds;
 
 // Current Activity Variables
 const currentActivitySection = document.querySelector('#jsCurrentActivitySection');
@@ -27,6 +29,9 @@ const logActivityButton = document.querySelector('.js-log-activity-button');
 // Past Activities Variables
 const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
 
+// Completed Activity Variables
+const completedActivitySection = document.querySelector('.js-completed-activity-section');
+const createNewActivityButton = document.querySelector('.js-create-new-activity-button')
 
 // Event Listeners
 studyButton.addEventListener('click', function(event) {
@@ -42,6 +47,27 @@ startActivityButton.addEventListener('click', function(event) {
   checkInput(event);
 });
 logActivityButton.addEventListener('click', logActivity);
+createNewActivityButton.addEventListener('click', showNewActivityForm);
+
+function showNewActivityForm(event) {
+  event.preventDefault();
+  newActivityForm.classList.remove('hidden');
+  completedActivitySection.classList.add('hidden');
+
+  if (isStudySelected) {
+    toggleStudy();
+  } else if (isMeditateSelected) {
+    toggleMeditate();
+  } else if (isExerciseSelected) {
+    toggleExercise();
+  }
+
+  activeButton = '';
+  isTimerActive = false;
+  intention.value = '';
+  minutesInput.value = '';
+  secondsInput.value = '';
+}
 
 function logActivity() {
   let currentActivity = activities[activities.length -1];
@@ -66,20 +92,24 @@ function logActivity() {
   } else if (activeButton === "exercise") {
     currentActivityCardMarker.classList.add('activity-card-marker-exercise');
   }
+
+  completedActivitySection.classList.remove('hidden');
+  currentActivitySection.classList.add('hidden');
 }
 
 function startActivity(event) {
   event.preventDefault();
   addActivity();
+  startTimerButton.innerText = "START";
   newActivityForm.classList.add('hidden');
   currentActivitySection.classList.remove('hidden');
-  if (seconds.value < 10) {
-    seconds = 0 + seconds.value
+  if (secondsInput.value < 10) {
+    seconds = 0 + secondsInput.value
   } else {
-    seconds = seconds.value;
+    seconds = secondsInput.value;
   }
-  if (minutes.value < 10) {
-    minutes = 0 + minutes.value
+  if (minutesInput.value < 10) {
+    minutes = 0 + minutesInput.value
   }
   countdownTimer.innerText = `${minutes}:${seconds}`;
 
@@ -95,26 +125,33 @@ function startActivity(event) {
 }
 
 function addTimeListeners(input) {
-  input.addEventListener("keydown", function(event) {
-    var invalidChars = ["-", "e", "+", "E"];
-    if (invalidChars.includes(event.key)) {
-      event.preventDefault();
-    }
-  })
+  input.addEventListener("keydown", function(event) {validateMinutesAndSeconds(event)});
 };
 
-addTimeListeners(minutes);
-addTimeListeners(seconds);
+addTimeListeners(minutesInput);
+addTimeListeners(secondsInput);
 
 startTimerButton.addEventListener('click', startCountdown);
 
 // Event Handlers
+
+function validateMinutesAndSeconds(event) {
+   var invalidChars = ["-", "e", "+", "E"];
+    if (invalidChars.includes(event.key)) {
+      event.preventDefault();
+    }
+}
+
+var isStudySelected;
+var isMeditateSelected;
+var isExerciseSelected;
+
 function changeColor(event) {
   event.preventDefault();
 
-  var isStudySelected = event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active');
-  var isMeditateSelected = event.target.matches('.js-meditate-button') || event.target.matches('.js-meditate-icon-inactive') || event.target.matches('.js-meditate-icon-active');
-  var isExerciseSelected = event.target.matches('.js-exercise-button') || event.target.matches('.js-exercise-icon-inactive') || event.target.matches('.js-exercise-icon-active');
+  isStudySelected = event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active');
+  isMeditateSelected = event.target.matches('.js-meditate-button') || event.target.matches('.js-meditate-icon-inactive') || event.target.matches('.js-meditate-icon-active');
+  isExerciseSelected = event.target.matches('.js-exercise-button') || event.target.matches('.js-exercise-icon-inactive') || event.target.matches('.js-exercise-icon-active');
 
   if (isStudySelected) {
     handleStudySelection();
@@ -187,9 +224,8 @@ function checkInput(event) {
   var throwsError = false;
   if (!activeButton) {
     categoryError.classList.remove('hidden');
-    //throw error message but also move onto loop for addtl errors
   }
-  // active button not asigned (falsy) to anything OR if the following if "", throw error
+  
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
       errors[i].classList.remove('hidden');
@@ -203,7 +239,7 @@ function checkInput(event) {
 }
 
 function addActivity() {
-  let activity = new Activity(activeButton, intention.value, minutes.value, seconds.value, false, (Date.now() + Math.round(Math.random() * 10)));
+  let activity = new Activity(activeButton, intention.value, minutesInput.value, secondsInput.value, false, (Date.now() + Math.round(Math.random() * 10)));
   activities.push(activity);
 }
 
@@ -217,18 +253,19 @@ function startCountdown() {
   isTimerActive = true;
   let timerInterval = setInterval(updateCountdown, 1000);
 
-  let time = parseInt(minutes * 60) + parseInt(seconds);
+  let time = parseInt(minutesInput.value * 60) + parseInt(secondsInput.value);
 
   function updateCountdown() {
     if (time < 0) {
       countdownTimer.innerText = "00:00";
       startTimerButton.innerText = "COMPLETE!";
       clearInterval(timerInterval);
+      logActivityButton.classList.remove('hidden');
       return;
     }
 
-    let minutes = Math.floor(time / 60);
-    let seconds = time % 60;
+    minutes = Math.floor(time / 60);
+    seconds = time % 60;
     minutes = minutes < 10 ? '0' + minutes : minutes;
     seconds = seconds < 10 ? '0' + seconds : seconds;
 
