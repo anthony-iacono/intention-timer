@@ -251,9 +251,9 @@ function startCountdown() {
     return;
   }
   isTimerActive = true;
-  let timerInterval = setInterval(updateCountdown, 1000);
-
   let time = parseInt(minutesInput.value * 60) + parseInt(secondsInput.value);
+  updateCountdown();
+  let timerInterval = setInterval(updateCountdown, 1000);
 
   function updateCountdown() {
     if (time < 0) {
