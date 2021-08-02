@@ -65,24 +65,32 @@ Text, error: #EFB7EC
 font-family: 'Montserrat', sans-serif;
 */
 
+html, body {
+  height: 100%;
+}
+
 body {
-  font-family: 'Montserrat', sans-serif;
   background-color: #2B2733;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Montserrat', sans-serif;
 }
 
 main {
-  display: grid;
-  grid-template-columns: 60% 40%;
   color: #CBC9CF;
+  display: grid;
+  flex: 1;
+  grid-template-columns: 60% 40%;
   min-width: 650px;
 }
 
 header {
+  background-color: #46424D;
+  color: #FFF;
   text-align: center;
   padding: 20px 0px;
 }
 
-header,
 .new-activity-box,
 .current-activity-box {
   background-color: #46424D;
@@ -100,7 +108,9 @@ form {
 }
 
 h2 {
-  padding-bottom: 10px;
+  padding: 10px;
+  margin-left: 10px;
+  margin-top: 12px;
 }
 
 button {
@@ -113,15 +123,34 @@ button {
 }
 
 .past-activities-section {
-  margin-top: 19px;
+  margin-top: 20px;
   min-width: 200px;
 }
 
 .current-activity-box {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   align-items: center;
+  box-shadow: 3px 3px 2px 0px #26222D;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px 20px 30px 20px;
+  padding: 40px 0;
+}
+
+.countdown-timer {
+  font-size: xxx-large;
+  font-weight: 1000;
+  margin-bottom: 40px;
+}
+
+.log-activity-button {
+  border-radius: 2px;
+  border-style: none;
+  color: #46424D;
+  padding: 8px;
+  text-transform: uppercase;
+  width: 160px;
 }
 
 .activity-icon {
@@ -177,7 +206,7 @@ button {
 
 .error-message {
   display: flex;
-  min-width: 160px
+  min-width: 160px;
   height: 10px;
   font-size: 12px;
 }
@@ -187,14 +216,22 @@ button {
   width: 10px;
 }
 
+.current-activity-section {
+  border-right: 2px solid #46424D;
+  display: flex;
+  flex-direction: column;
+}
+
 .start-timer-button {
   border-radius: 50%;
   background-color: transparent;
   border: solid 3px;
   color: #fff;
+  font-size: 20px;
   height: 200px;
-  width: 200px;
+  margin-bottom: 32px;
   text-transform: uppercase;
+  width: 200px;
 }
 
 .study-border {
