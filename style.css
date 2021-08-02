@@ -114,7 +114,7 @@ h2 {
 }
 
 button {
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .new-activity-box {

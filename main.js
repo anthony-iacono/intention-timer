@@ -1,3 +1,10 @@
+let activeButton;
+
+const activities = [];
+
+let isTimerActive = false;
+
+
 // New Activity Variables
 const newActivityForm = document.querySelector('#jsNewActivityForm');
 const studyButton = document.querySelector('.js-study-button');
@@ -25,13 +32,15 @@ const currentIntention = document.querySelector('.js-current-intention');
 const countdownTimer = document.querySelector('.js-countdown-timer');
 const startTimerButton = document.querySelector('.js-start-timer-button');
 const logActivityButton = document.querySelector('.js-log-activity-button');
+let currentActivity;
+let timerInterval
 
 // Past Activities Variables
 const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
 
 // Completed Activity Variables
 const completedActivitySection = document.querySelector('.js-completed-activity-section');
-const createNewActivityButton = document.querySelector('.js-create-new-activity-button')
+const createNewActivityButton = document.querySelector('.js-create-new-activity-button');
 
 // Event Listeners
 studyButton.addEventListener('click', function(event) {
@@ -70,7 +79,7 @@ function showNewActivityForm(event) {
 }
 
 function logActivity() {
-  let currentActivity = activities[activities.length -1];
+  currentActivity = activities[activities.length -1];
 
   jsPastActivitiesList.innerHTML += `
   <div class="activity-card">
@@ -131,7 +140,6 @@ function addTimeListeners(input) {
 addTimeListeners(minutesInput);
 addTimeListeners(secondsInput);
 
-startTimerButton.addEventListener('click', startCountdown);
 
 // Event Handlers
 
@@ -239,39 +247,10 @@ function checkInput(event) {
 }
 
 function addActivity() {
-  let activity = new Activity(activeButton, intention.value, minutesInput.value, secondsInput.value, false, (Date.now() + Math.round(Math.random() * 10)));
-  activities.push(activity);
-}
-
-// Countdown Timer
-// REFACTOR: PREVENT START BUTTON FROM BEING CLICKED MORE THAN ONCE
-// ADJUST START DELAY TIME (COUNT IN SECONDS FOR ALL NUMBERS 9 AND 2)
-function startCountdown() {
-  if (isTimerActive) {
-    return;
-  }
-  isTimerActive = true;
-  let time = parseInt(minutesInput.value * 60) + parseInt(secondsInput.value);
-  updateCountdown();
-  let timerInterval = setInterval(updateCountdown, 1000);
-
-  function updateCountdown() {
-    if (time < 0) {
-      countdownTimer.innerText = "00:00";
-      startTimerButton.innerText = "COMPLETE!";
-      clearInterval(timerInterval);
-      logActivityButton.classList.remove('hidden');
-      return;
-    }
-
-    minutes = Math.floor(time / 60);
-    seconds = time % 60;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-
-    countdownTimer.innerHTML = `${minutes}:${seconds}`;
-    time--;
-  }
+  currentActivity = new Activity(activeButton, intention.value, minutesInput.value, secondsInput.value, false, (Date.now() + Math.round(Math.random() * 10)));
+  activities.push(currentActivity);
+  // add event listener
+  startTimerButton.addEventListener('click', currentActivity.countDown);
 }
 
 // Helper Functions
