@@ -212,3 +212,32 @@ button {
 .hidden {
   display: none;
 }
+
+.activity-card {
+  display: flex;
+  justify-content: space-between;
+}
+
+.activity-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.activity-card-marker-study,
+.activity-card-marker-meditate,
+.activity-card-marker-exercise {
+  width: 10px;
+  height: 30px;
+}
+
+.activity-card-marker-study {
+  background-color: #B3FD78;
+}
+
+.activity-card-marker-meditate {
+  background-color: #C278FD
+}
+
+.activity-card-marker-exercise {
+  background-color: #FD8078
+}
