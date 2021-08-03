@@ -225,7 +225,7 @@ function checkInput(event) {
   if (!activeButton) {
     categoryError.classList.remove('hidden');
   }
-  
+
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
       errors[i].classList.remove('hidden');
