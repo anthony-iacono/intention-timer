@@ -5,7 +5,7 @@ class Activity {
     this.minutes = minutes;
     this.seconds = seconds;
     this.completed = completed;
-    this.id = id;
+    this.id = (Date.now() + Math.round(Math.random() * 10));
   }
 
   countDown() {
