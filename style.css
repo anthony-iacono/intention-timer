@@ -292,21 +292,60 @@ button {
   display: none;
 }
 
+.past-activities-list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	text-align: center;
+	line-height: 30px;
+}
+
 .activity-card {
   display: flex;
   justify-content: space-between;
+	background-color: #46424D;
+	border-radius: 5px;
+	margin-right: 20px;
+	box-shadow: 3px 3px 3px black;
 }
 
 .activity-card-content {
   display: flex;
   flex-direction: column;
+	font-size: 12px;
+	border-radius: 5%;
+	box-shadow: 5px;
 }
+
+.activity-category {
+	font-weight: bold;
+	padding-top: 5px;
+	padding-left: 10px;
+}
+
+.activity-time {
+	padding-top: 1px;
+	padding-left: 10px;
+}
+
+.activity-description {
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+}
+
 
 .activity-card-marker-study,
 .activity-card-marker-meditate,
 .activity-card-marker-exercise {
-  width: 10px;
-  height: 30px;
+	display: flex;
+	width: 4px;
+	height: 15px;
+	border-radius: 30%;
+	padding-top: 5px;
+	margin-top: 5px;
+	margin-right: 5px;
+
 }
 
 .activity-card-marker-study {
@@ -320,3 +359,23 @@ button {
 .activity-card-marker-exercise {
   background-color: #FD8078
 }
+
+/* completed activity section: */
+
+/* .completed-activity-section {
+display: flex;
+justify-content: space-between;
+background-color: #46424D;
+border-radius: 5px;
+margin-right: 20px;
+box-shadow: 3px 3px 3px black;
+}
+
+.create-new-activity-button {
+display: flex;
+justify-content: center;
+background-color: #FFF;
+border-radius: 5px;
+height: 30px;
+width: 100px;
+} */
