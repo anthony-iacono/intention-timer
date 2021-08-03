@@ -18,7 +18,7 @@ const meditateIconInactive = document.querySelector('.js-meditate-icon-inactive'
 const minutesInput = document.querySelector('.js-minutes');
 const newActivityForm = document.querySelector('.js-new-activity-form');
 const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
-const pastActivitiesPlaceHolder = document.querySelector('.js-past-activities-list-place-holder');
+const pastActivitiesPlaceholder = document.querySelector('.js-past-activities-placeholder');
 const secondsInput = document.querySelector('.js-seconds');
 const startActivityButton = document.querySelector('.js-start-activity-button');
 const startTimerButton = document.querySelector('.js-start-timer-button');
@@ -74,8 +74,7 @@ function clearActivity() {
 function logActivity() {
   checkForPastActivities();
   currentActivity.saveToStorage();
-  console.log(currentActivity, "current activity");
-  // currentActivity = activities[activities.length -1];
+  console.log(currentActivity);
 
   jsPastActivitiesList.innerHTML += `
   <div class="activity-card">
@@ -100,6 +99,7 @@ function logActivity() {
 
   completedActivitySection.classList.remove('hidden');
   currentActivitySection.classList.add('hidden');
+  logActivityButton.classList.add('hidden');
 }
 
 function startActivity(event) {
@@ -254,13 +254,13 @@ function addActivity() {
 function checkForPastActivities() {
   activities = JSON.parse(localStorage.getItem("pastActivities"));
   if(!activities) {
-    pastActivitiesPlaceHolder.classList.remove('hidden');
+    pastActivitiesPlaceholder.classList.remove('hidden');
     activities = [];
     return;
   }
 
   for (var i = 0; i < activities.length; i++) {
-    jsPastActivitiesList.innerHTML += `
+    pastActivitiesList.innerHTML += `
     <div class="activity-card">
       <article class="activity-card-content">
         <p class="activity-category">${activities[i].category}</p>
@@ -275,7 +275,8 @@ function checkForPastActivities() {
 
     updateActivityMarker();
   }
-  pastActivitiesPlaceHolder.classList.add('hidden');
+
+  pastActivitiesPlaceholder.classList.add('hidden');
 };
 
 function updateActivityMarker() {
