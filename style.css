@@ -88,7 +88,7 @@ header {
   background-color: #46424D;
   color: #FFF;
   text-align: center;
-  padding: 20px 0px;
+  padding: 15px 0px;
 }
 
 .new-activity-box,
@@ -105,6 +105,7 @@ header,
 
 form {
   margin: 20px;
+  min-width: 570px;
 }
 
 h2 {
@@ -117,9 +118,22 @@ button {
   /* cursor: pointer; */
 }
 
+.category-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 75px;
+  width: 400px;
+}
+
 .new-activity-box {
-  padding: 30px 50px 30px 50px;
-  min-width: 250px;
+  min-height: 370px;
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  /* align-items: center; */
+  padding: 30px 70px;
 }
 
 .past-activities-section {
@@ -156,25 +170,33 @@ button {
 .activity-icon {
   width: 20px;
   height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-bottom: 2px;
 }
 
 .activity-buttons-box {
+  padding-top: 10px;
+  height: 75px;
+  width: 400px;
   display: flex;
   justify-content: space-between;
+
 }
 
 .study-button-inactive,
 .meditate-button-inactive,
 .exercise-button-inactive {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0px;
   background-color: transparent;
   color: #FFF;
   border: 1px solid #FFF;
   border-radius: 5px;
-  min-width: 100px;
-  max-height: 50px;
+  width: 100px;
+  height: 45px;
+  /* max-height: 70px; */
 }
 
 .study-button-active {
@@ -197,6 +219,26 @@ button {
   color: #FFF;
   border: none;
   border-bottom: #FFF solid 1px;
+}
+
+.intention-input {
+  padding-top: 10px
+}
+
+.time-input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.minutes-input,
+.seconds-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.start-activity-button-box {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .start-activity-button {
