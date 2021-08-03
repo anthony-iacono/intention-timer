@@ -1,86 +1,75 @@
-let activeButton;
-
-let activities = [];
-
-let isTimerActive = false;
-
-
-// New Activity Variables
-const newActivityForm = document.querySelector('#jsNewActivityForm');
-const studyButton = document.querySelector('.js-study-button');
-const studyIconInactive = document.querySelector('.js-study-icon-inactive');
-const studyIconActive = document.querySelector('.js-study-icon-active');
-const meditateButton = document.querySelector('.js-meditate-button');
-const meditateIconInactive = document.querySelector('.js-meditate-icon-inactive');
-const meditateIconActive = document.querySelector('.js-meditate-icon-active');
-const exerciseButton = document.querySelector('.js-exercise-button');
-const exerciseIconInactive = document.querySelector('.js-exercise-icon-inactive');
-const exerciseIconActive = document.querySelector('.js-exercise-icon-active');
-const startActivityButton = document.querySelector('.js-start-activity-button');
-const inputs = document.querySelectorAll('.js-input');
-const errors = document.querySelectorAll('.js-error-message');
+// Variables
 const categoryError = document.querySelector('.js-category-error-message');
-const intention = document.querySelector('.js-intention');
-const minutesInput = document.querySelector('.js-minutes');
-const secondsInput = document.querySelector('.js-seconds');
-let minutes;
-let seconds;
-
-// Current Activity Variables
-const currentActivitySection = document.querySelector('#jsCurrentActivitySection');
-const currentIntention = document.querySelector('.js-current-intention');
+const completedActivitySection = document.querySelector('.js-completed-activity-section');
 const countdownTimer = document.querySelector('.js-countdown-timer');
-const startTimerButton = document.querySelector('.js-start-timer-button');
+const currentActivitySection = document.querySelector('#jsCurrentActivitySection');
+const currentDescription = document.querySelector('.js-current-description');
+const createNewActivityButton = document.querySelector('.js-create-new-activity-button');
+const description = document.querySelector('.js-description');
+const errors = document.querySelectorAll('.js-error-message');
+const exerciseButton = document.querySelector('.js-exercise-button');
+const exerciseIconActive = document.querySelector('.js-exercise-icon-active');
+const exerciseIconInactive = document.querySelector('.js-exercise-icon-inactive');
+const inputs = document.querySelectorAll('.js-input');
 const logActivityButton = document.querySelector('.js-log-activity-button');
-let currentActivity;
-let timerInterval
-
-// Past Activities Variables
+const meditateButton = document.querySelector('.js-meditate-button');
+const meditateIconActive = document.querySelector('.js-meditate-icon-active');
+const meditateIconInactive = document.querySelector('.js-meditate-icon-inactive');
+const minutesInput = document.querySelector('.js-minutes');
+const newActivityForm = document.querySelector('.js-new-activity-form');
 const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
 const pastActivitiesPlaceHolder = document.querySelector('.js-past-activities-list-place-holder');
-
-// Completed Activity Variables
-const completedActivitySection = document.querySelector('.js-completed-activity-section');
-const createNewActivityButton = document.querySelector('.js-create-new-activity-button');
+const secondsInput = document.querySelector('.js-seconds');
+const startActivityButton = document.querySelector('.js-start-activity-button');
+const startTimerButton = document.querySelector('.js-start-timer-button');
+const studyButton = document.querySelector('.js-study-button');
+const studyIconActive = document.querySelector('.js-study-icon-active');
+const studyIconInactive = document.querySelector('.js-study-icon-inactive');
+let activeButton;
+let activities = [];
+let currentActivity;
+let isTimerActive = false;
+let minutes;
+let seconds;
+let timerInterval
 
 // Event Listeners
-studyButton.addEventListener('click', function(event) {
-  changeColor(event);
-});
-meditateButton.addEventListener('click', function(event) {
-  changeColor(event);
-});
-exerciseButton.addEventListener('click', function(event) {
-  changeColor(event);
-});
-startActivityButton.addEventListener('click', function(event) {
-  checkInput(event);
-});
-logActivityButton.addEventListener('click', logActivity);
-
 createNewActivityButton.addEventListener('click', showNewActivityForm);
-
+exerciseButton.addEventListener('click', function(event) {changeColor(event)});
+logActivityButton.addEventListener('click', logActivity);
+meditateButton.addEventListener('click', function(event) {changeColor(event)});
+startActivityButton.addEventListener('click', function(event) {
+  checkInput(event)
+});
+studyButton.addEventListener('click', function(event) {changeColor(event)});
 window.addEventListener('load', checkForPastActivities);
 
-function showNewActivityForm(event) {
-  event.preventDefault();
+function showNewActivityForm() {
   newActivityForm.classList.remove('hidden');
   completedActivitySection.classList.add('hidden');
+  resetNewActivityForm();
+};
 
-  if (isStudySelected) {
-    toggleStudy();
-  } else if (isMeditateSelected) {
-    toggleMeditate();
-  } else if (isExerciseSelected) {
-    toggleExercise();
-  }
-
+function resetNewActivityForm() {
   activeButton = '';
   isTimerActive = false;
-  intention.value = '';
+  description.value = '';
   minutesInput.value = '';
   secondsInput.value = '';
-}
+  clearActivity();
+};
+
+function clearActivity() {
+  studyIconInactive.classList.remove('hidden');
+  studyIconActive.classList.add('hidden');
+  studyButton.classList.remove('study-button-active');
+  exerciseIconInactive.classList.remove('hidden');
+  exerciseIconActive.classList.add('hidden');
+  exerciseButton.classList.remove('exercise-button-active');
+  meditateIconInactive.classList.remove('hidden');
+  meditateIconActive.classList.add('hidden');
+  meditateButton.classList.remove('meditate-button-active');
+};
 
 function logActivity() {
   checkForPastActivities();
@@ -129,7 +118,7 @@ function startActivity(event) {
   }
   countdownTimer.innerText = `${minutes}:${seconds}`;
 
-  currentIntention.innerText = intention.value;
+  currentDescription.innerText = description.value;
 
   if (activeButton === "study") {
     startTimerButton.classList.remove('exercise-border');
@@ -237,11 +226,7 @@ function toggleExercise() {
   exerciseIconActive.classList.toggle('hidden');
 };
 
-
-//create one function for each category (toggleStudy, toggleMeditate, toggleExercise....do not need to pass event)
-
 function checkInput(event) {
-  event.preventDefault()
   var throwsError = false;
   if (!activeButton) {
     categoryError.classList.remove('hidden');
@@ -260,7 +245,7 @@ function checkInput(event) {
 }
 
 function addActivity() {
-  currentActivity = new Activity(activeButton, intention.value, minutesInput.value, secondsInput.value, false, (Date.now() + Math.round(Math.random() * 10)));
+  currentActivity = new Activity(activeButton, description.value, minutesInput.value, secondsInput.value, false, (Date.now() + Math.round(Math.random() * 10)));
   activities.push(currentActivity);
   // add event listener
   startTimerButton.addEventListener('click', currentActivity.countDown);
@@ -286,17 +271,39 @@ function checkForPastActivities() {
     </div>
     `
 
-    let currentActivityCardMarker = document.getElementById(activities[i].category);
+    const currentActivityCardMarker = document.getElementById(activities[i].category);
 
-    if (activeButton === "study") {
-      currentActivityCardMarker.classList.add('activity-card-marker-study');
-    } else if (activeButton === "meditate") {
-      currentActivityCardMarker.classList.add('activity-card-marker-meditate');
-    } else if (activeButton === "exercise") {
-      currentActivityCardMarker.classList.add('activity-card-marker-exercise');
-    }
+    updateActivityMarker();
   }
   pastActivitiesPlaceHolder.classList.add('hidden');
+};
+
+function updateActivityMarker() {
+  if (activeButton === "study") {
+    displayActivityMarkerStudy();
+  } else if (activeButton === "meditate") {
+    displayActivityMarkerMeditate();
+  } else if (activeButton === "exercise") {
+    displayActivityMarkerExercise();
+  }
+}
+
+function displayActivityMarkerStudy() {
+  currentActivityCardMarker.classList.remove('activity-card-marker-meditate');
+  currentActivityCardMarker.classList.remove('activity-card-marker-exercise');
+  currentActivityCardMarker.classList.add('activity-card-marker-study');
+};
+
+function displayActivityMarkerMeditate() {
+  currentActivityCardMarker.classList.remove('activity-card-marker-study');
+  currentActivityCardMarker.classList.remove('activity-card-marker-exercise');
+  currentActivityCardMarker.classList.add('activity-card-marker-meditate');
+};
+
+function displayActivityMarkerExercise() {
+  currentActivityCardMarker.classList.remove('activity-card-marker-meditate');
+  currentActivityCardMarker.classList.remove('activity-card-marker-study');
+  currentActivityCardMarker.classList.add('activity-card-marker-exercise');
 };
 
 // Helper Functions
