@@ -1,6 +1,6 @@
 let activeButton;
 
-const activities = [];
+let activities = [];
 
 let isTimerActive = false;
 
@@ -37,6 +37,7 @@ let timerInterval
 
 // Past Activities Variables
 const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
+const pastActivitiesPlaceHolder = document.querySelector('.js-past-activities-list-place-holder');
 
 // Completed Activity Variables
 const completedActivitySection = document.querySelector('.js-completed-activity-section');
@@ -56,7 +57,10 @@ startActivityButton.addEventListener('click', function(event) {
   checkInput(event);
 });
 logActivityButton.addEventListener('click', logActivity);
+
 createNewActivityButton.addEventListener('click', showNewActivityForm);
+
+window.addEventListener('load', checkForPastActivities);
 
 function showNewActivityForm(event) {
   event.preventDefault();
@@ -79,7 +83,10 @@ function showNewActivityForm(event) {
 }
 
 function logActivity() {
-  currentActivity = activities[activities.length -1];
+  checkForPastActivities();
+  currentActivity.saveToStorage();
+  console.log(currentActivity, "current activity");
+  // currentActivity = activities[activities.length -1];
 
   jsPastActivitiesList.innerHTML += `
   <div class="activity-card">
@@ -125,10 +132,16 @@ function startActivity(event) {
   currentIntention.innerText = intention.value;
 
   if (activeButton === "study") {
+    startTimerButton.classList.remove('exercise-border');
+    startTimerButton.classList.remove('meditate-border');
     startTimerButton.classList.add('study-border');
   } else if (activeButton === "meditate") {
+    startTimerButton.classList.remove('exercise-border');
+    startTimerButton.classList.remove('study-border');
     startTimerButton.classList.add('meditate-border');
   } else if (activeButton === "exercise") {
+    startTimerButton.classList.remove('study-border');
+    startTimerButton.classList.remove('meditate-border');
     startTimerButton.classList.add('exercise-border');
   }
 }
@@ -233,7 +246,7 @@ function checkInput(event) {
   if (!activeButton) {
     categoryError.classList.remove('hidden');
   }
-  
+
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
       errors[i].classList.remove('hidden');
@@ -252,5 +265,38 @@ function addActivity() {
   // add event listener
   startTimerButton.addEventListener('click', currentActivity.countDown);
 }
+
+function checkForPastActivities() {
+  activities = JSON.parse(localStorage.getItem("pastActivities"));
+  if(!activities) {
+    pastActivitiesPlaceHolder.classList.remove('hidden');
+    activities = [];
+    return;
+  }
+
+  for (var i = 0; i < activities.length; i++) {
+    jsPastActivitiesList.innerHTML += `
+    <div class="activity-card">
+      <article class="activity-card-content">
+        <p class="activity-category">${activities[i].category}</p>
+        <p class="activity-time">${activities[i].minutes} MIN ${activities[i].seconds} SECONDS</p>
+        <p class="activity-description">${activities[i].description}</p>
+      </article>
+      <div class="activity-card-marker" id="${activities[i].category}"></div>
+    </div>
+    `
+
+    let currentActivityCardMarker = document.getElementById(activities[i].category);
+
+    if (activeButton === "study") {
+      currentActivityCardMarker.classList.add('activity-card-marker-study');
+    } else if (activeButton === "meditate") {
+      currentActivityCardMarker.classList.add('activity-card-marker-meditate');
+    } else if (activeButton === "exercise") {
+      currentActivityCardMarker.classList.add('activity-card-marker-exercise');
+    }
+  }
+  pastActivitiesPlaceHolder.classList.add('hidden');
+};
 
 // Helper Functions
