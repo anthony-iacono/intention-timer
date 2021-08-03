@@ -50,7 +50,7 @@
             </label>
           </div>
           <div class="time-input">
-            <label>
+            <label class="minutes-input">
               Minutes
               <input type="number" name="minutes" class="input js-input js-minutes" />
               <div class="error-message js-error-message hidden">
@@ -58,7 +58,7 @@
                 <p>Minutes are required.</p>
               </div>
             </label>
-            <label>
+            <label class="seconds-input">
               Seconds
               <input type="number" name="seconds" class="input js-input js-seconds" />
               <div class="error-message js-error-message hidden">
@@ -67,7 +67,9 @@
               </div>
             </label>
           </div>
-          <button class="start-activity-button js-start-activity-button">Start Activity</button>
+          <div class="button start-activity-button-box">
+            <button class="start-activity-button js-start-activity-button">Start Activity</button>
+          </div>
         </div>
       </form>
       <section class="current-activity-section hidden" id="jsCurrentActivitySection">

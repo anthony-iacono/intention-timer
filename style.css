@@ -128,12 +128,12 @@ button {
 
 .new-activity-box {
   min-height: 370px;
-  min-width: 540px;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
-  padding: 30px 50px;
+  /* align-items: center; */
+  padding: 30px 70px;
 }
 
 .past-activities-section {
@@ -174,6 +174,7 @@ button {
 }
 
 .activity-buttons-box {
+  padding-top: 10px;
   height: 75px;
   width: 400px;
   display: flex;
@@ -218,6 +219,26 @@ button {
   color: #FFF;
   border: none;
   border-bottom: #FFF solid 1px;
+}
+
+.intention-input {
+  padding-top: 10px
+}
+
+.time-input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.minutes-input,
+.seconds-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.start-activity-button-box {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .start-activity-button {
