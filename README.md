@@ -24,3 +24,6 @@ The purpose of this application is to log a user's study, meditate, and exercise
 
 ## Project Spec
 The project spec & rubric can be found [here](https://frontend.turing.edu/projects/module-1/intention-timer-group.html)
+
+## Naming Conventions
+All HTML elements selected in our JavaScript files are selected using class names prefixed with 'js-' and written in kebab case.
