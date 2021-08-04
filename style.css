@@ -81,7 +81,7 @@ main {
   display: grid;
   flex: 1;
   grid-template-columns: 60% 40%;
-  min-width: 650px;
+  min-width: 1200px;
 }
 
 header {
@@ -96,6 +96,7 @@ header {
   background-color: #46424D;
   color: #FFF;
   border-radius: 5px;
+  box-shadow: 3px 3px 3px #1F262A;
 }
 
 header,
@@ -104,8 +105,9 @@ header,
 }
 
 form {
+  display:  flex;
   margin: 20px;
-  min-width: 570px;
+  min-width: 500px;
 }
 
 h2 {
@@ -126,14 +128,31 @@ button {
   width: 400px;
 }
 
+.completed-activity-section {
+  display: flex;
+  justify-content: space-between;
+  background-color: #46424D;
+  border-radius: 5px;
+  margin-right: 20px;
+  box-shadow: 3px 3px 3px #26222D;
+}
+
+.create-new-activity-button {
+  display: flex;
+  justify-content: center;
+  background-color: #FFF;
+  border-radius: 5px;
+  height: 30px;
+  width: 100px;
+}
+
 .new-activity-box {
   min-height: 370px;
-  max-width: 540px;
+  max-width: 450px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  /* align-items: center; */
-  padding: 30px 70px;
+  padding: 30px;
 }
 
 .past-activities-section {
@@ -221,7 +240,7 @@ button {
   border-bottom: #FFF solid 1px;
 }
 
-.intention-input {
+.description-input {
   padding-top: 10px
 }
 
@@ -292,21 +311,61 @@ button {
   display: none;
 }
 
+.past-activities-list {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	text-align: center;
+	line-height: 30px;
+  gap: 10px;
+}
+
 .activity-card {
   display: flex;
   justify-content: space-between;
+	background-color: #46424D;
+	border-radius: 5px;
+	margin-right: 20px;
+	box-shadow: 3px 3px 3px #26222D;
 }
 
 .activity-card-content {
   display: flex;
   flex-direction: column;
+	font-size: 12px;
+	border-radius: 5%;
+	box-shadow: 5px;
 }
+
+.activity-category {
+	font-weight: bold;
+	padding-top: 5px;
+	padding-left: 10px;
+}
+
+.activity-time {
+	padding-top: 1px;
+	padding-left: 10px;
+}
+
+.activity-description {
+	padding-top: 5px;
+	padding-left: 10px;
+	padding-bottom: 5px;
+}
+
 
 .activity-card-marker-study,
 .activity-card-marker-meditate,
 .activity-card-marker-exercise {
-  width: 10px;
-  height: 30px;
+	display: flex;
+	width: 4px;
+	height: 15px;
+	border-radius: 30%;
+	padding-top: 5px;
+	margin-top: 5px;
+	margin-right: 5px;
+
 }
 
 .activity-card-marker-study {

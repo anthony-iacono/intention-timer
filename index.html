@@ -12,7 +12,7 @@
       <h1>Intention Timer</h1>
     </header>
     <main>
-      <form id="jsNewActivityForm">
+      <form class="js-new-activity-form">
         <h2>New Activity</h2>
         <div class="new-activity-box">
           <div class="category-buttons">
@@ -39,10 +39,10 @@
               </div>
             </div>
           </div>
-          <div class="intention-input">
+          <div class="description-input">
             <label>
               What would you like to accomplish during this time?
-              <input type="text" name="goal" class="input js-input js-intention" />
+              <input type="text" name="goal" class="input js-input js-description" />
               <div class="error-message js-error-message hidden">
                 <img src="./assets/warning.svg" class="error-icon" />
                 <p>A description is required.</p>
@@ -75,20 +75,23 @@
       <section class="current-activity-section hidden" id="jsCurrentActivitySection">
         <h2>Current Activity</h2>
         <div class="current-activity-box">
-          <p class="activity-description js-current-intention"></p>
+          <p class="activity-description js-current-description"></p>
           <p class="countdown-timer js-countdown-timer"></p>
           <button class="start-timer-button js-start-timer-button">Start</button>
           <button class="log-activity-button js-log-activity-button hidden">Log Activity</button>
         </div>
       </section>
-      <section class="js-completed-activity-section hidden">
+      <section class="completed-activity-section js-completed-activity-section hidden">
         <h2>Completed Activity</h2>
-        <button class="js-create-new-activity-button">Create a New Activity</button>
+        <button class="create-new-activity-button js-create-new-activity-button">Create a New Activity</button>
       </section>
       <section class="past-activities-section">
         <h2>Past Activities</h2>
-        <div class="js-past-activities-list" id="jsPastActivitiesList">
-          <p class="js-past-activities-list-place-holder">You haven't logged any activities yet. Complete the form to the left to get started!</p>
+        <div class="past-activities-list js-past-activities-list">
+          <div class="js-past-activities-placeholder">
+            <p>You haven't logged any activities yet. </p>
+            <p>Complete the form to the left to get started!</p>
+          </div>
         </div>
       </section>
     </main>

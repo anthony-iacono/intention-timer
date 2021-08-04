@@ -5,7 +5,7 @@ class Activity {
     this.minutes = minutes;
     this.seconds = seconds;
     this.completed = completed;
-    this.id = id;
+    this.id = (Date.now() + Math.round(Math.random() * 10));
   }
 
   countDown() {
@@ -48,15 +48,6 @@ class Activity {
   };
 
   saveToStorage() {
-    // called when click log activity button:
-
-    // stringify currentActivity JSON (key being the id)
     localStorage.setItem("pastActivities", JSON.stringify(activities));
-    // local storage set item
-//if activities present, hide js past activities list div
-    // on page load, get item from local storage and send to past activities []
-    // retrieve object  -- get item
-    // parse object
-    // Everything works
   };
 }
