@@ -17,7 +17,7 @@ const meditateIconActive = document.querySelector('.js-meditate-icon-active');
 const meditateIconInactive = document.querySelector('.js-meditate-icon-inactive');
 const minutesInput = document.querySelector('.js-minutes');
 const newActivityForm = document.querySelector('.js-new-activity-form');
-const pastActivitiesList = document.querySelector('#jsPastActivitiesList');
+const pastActivitiesList = document.querySelector('.js-past-activities-list');
 const pastActivitiesPlaceholder = document.querySelector('.js-past-activities-placeholder');
 const secondsInput = document.querySelector('.js-seconds');
 const startActivityButton = document.querySelector('.js-start-activity-button');
@@ -28,6 +28,7 @@ const studyIconInactive = document.querySelector('.js-study-icon-inactive');
 let activeButton;
 let activities = [];
 let currentActivity;
+let currentActivityCardMarker;
 let isTimerActive = false;
 let minutes;
 let seconds;
@@ -43,21 +44,35 @@ startActivityButton.addEventListener('click', function(event) {
   checkInput(event)
 });
 studyButton.addEventListener('click', function(event) {changeColor(event)});
-window.addEventListener('load', checkForPastActivities);
 
-function showNewActivityForm() {
-  newActivityForm.classList.remove('hidden');
-  completedActivitySection.classList.add('hidden');
-  resetNewActivityForm();
+window.onload = checkForPastActivities;
+
+function addActivity() {
+  currentActivity = new Activity(activeButton, description.value, minutesInput.value, secondsInput.value, false);
+  activities.push(currentActivity);
+  startTimerButton.addEventListener('click', currentActivity.countDown);
 }
 
-function resetNewActivityForm() {
-  activeButton = '';
-  isTimerActive = false;
-  description.value = '';
-  minutesInput.value = '';
-  secondsInput.value = '';
-  clearActivity();
+function checkForEmptyInput() {
+  for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i].value === "") {
+      errors[i].classList.remove('hidden');
+      throwsError = true;
+    }
+  }
+}
+
+function checkForPastActivities() {
+  activities = JSON.parse(localStorage.getItem("pastActivities"));
+  if(!activities) {
+    pastActivitiesPlaceholder.classList.remove('hidden');
+    activities = [];
+    return;
+  }
+
+  pastActivitiesPlaceholder.classList.add('hidden');
+  pastActivitiesList.innerHTML = '';
+  renderPastActivitiesList();
 }
 
 function clearActivity() {
@@ -73,31 +88,8 @@ function clearActivity() {
 }
 
 function logActivity() {
-  checkForPastActivities();
   currentActivity.saveToStorage();
-  console.log(currentActivity);
-
-  jsPastActivitiesList.innerHTML += `
-  <div class="activity-card">
-    <article class="activity-card-content">
-      <p class="activity-category">${currentActivity.category}</p>
-      <p class="activity-time">${currentActivity.minutes} MIN ${currentActivity.seconds} SECONDS</p>
-      <p class="activity-description">${currentActivity.description}</p>
-    </article>
-    <div class="activity-card-marker" id="${currentActivity.category}"></div>
-  </div>
-  `
-
-  let currentActivityCardMarker = document.getElementById(currentActivity.category);
-
-  if (activeButton === "study") {
-    currentActivityCardMarker.classList.add('activity-card-marker-study');
-  } else if (activeButton === "meditate") {
-    currentActivityCardMarker.classList.add('activity-card-marker-meditate');
-  } else if (activeButton === "exercise") {
-    currentActivityCardMarker.classList.add('activity-card-marker-exercise');
-  }
-
+  checkForPastActivities();
   completedActivitySection.classList.remove('hidden');
   currentActivitySection.classList.add('hidden');
   logActivityButton.classList.add('hidden');
@@ -166,15 +158,15 @@ addTimeListeners(secondsInput);
 // Event Handlers
 
 function validateMinutesAndSeconds(event) {
-   var invalidChars = ["-", "e", "+", "E"];
+   const invalidChars = ["-", "e", "+", "E"];
     if (invalidChars.includes(event.key)) {
       event.preventDefault();
     }
 }
 
-var isStudySelected;
-var isMeditateSelected;
-var isExerciseSelected;
+let isStudySelected;
+let isMeditateSelected;
+let isExerciseSelected;
 
 function changeColor(event) {
   event.preventDefault();
@@ -239,6 +231,12 @@ function handleExerciseSelection() {
   toggleExercise();
 }
 
+function showNewActivityForm() {
+  newActivityForm.classList.remove('hidden');
+  completedActivitySection.classList.add('hidden');
+  resetNewActivityForm();
+}
+
 function toggleStudy() {
   studyButton.classList.toggle('study-button-active');
   studyIconInactive.classList.toggle('hidden');
@@ -270,31 +268,8 @@ function checkInput(event) {
   }
 }
 
-function checkForEmptyInput() {
-  for (var i = 0; i < inputs.length; i++) {
-    if (inputs[i].value === "") {
-      errors[i].classList.remove('hidden');
-      throwsError = true;
-    }
-  }
-}
-
-function addActivity() {
-  currentActivity = new Activity(activeButton, description.value, minutesInput.value, secondsInput.value, false);
-  activities.push(currentActivity);
-  // add event listener
-  startTimerButton.addEventListener('click', currentActivity.countDown);
-}
-
-function checkForPastActivities() {
-  activities = JSON.parse(localStorage.getItem("pastActivities"));
-  if(!activities) {
-    pastActivitiesPlaceholder.classList.remove('hidden');
-    activities = [];
-    return;
-  }
-
-  for (var i = 0; i < activities.length; i++) {
+function renderPastActivitiesList() {
+  for (let i = 0; i < activities.length; i++) {
     pastActivitiesList.innerHTML += `
     <div class="activity-card">
       <article class="activity-card-content">
@@ -302,44 +277,19 @@ function checkForPastActivities() {
         <p class="activity-time">${activities[i].minutes} MIN ${activities[i].seconds} SECONDS</p>
         <p class="activity-description">${activities[i].description}</p>
       </article>
-      <div class="activity-card-marker" id="${activities[i].category}"></div>
+      <div class="activity-card-marker activity-card-marker-${activities[i].category}" id="${activities[i].category}"></div>
     </div>
-    `
+    `;
 
-    const currentActivityCardMarker = document.getElementById(activities[i].category);
-
-    updateActivityMarker();
-  }
-
-  pastActivitiesPlaceholder.classList.add('hidden');
-}
-
-function updateActivityMarker() {
-  if (activeButton === "study") {
-    displayActivityMarkerStudy();
-  } else if (activeButton === "meditate") {
-    displayActivityMarkerMeditate();
-  } else if (activeButton === "exercise") {
-    displayActivityMarkerExercise();
+    currentActivityCardMarker = document.getElementById(activities[i].category);
   }
 }
 
-function displayActivityMarkerStudy() {
-  currentActivityCardMarker.classList.remove('activity-card-marker-meditate');
-  currentActivityCardMarker.classList.remove('activity-card-marker-exercise');
-  currentActivityCardMarker.classList.add('activity-card-marker-study');
+function resetNewActivityForm() {
+  activeButton = '';
+  isTimerActive = false;
+  description.value = '';
+  minutesInput.value = '';
+  secondsInput.value = '';
+  clearActivity();
 }
-
-function displayActivityMarkerMeditate() {
-  currentActivityCardMarker.classList.remove('activity-card-marker-study');
-  currentActivityCardMarker.classList.remove('activity-card-marker-exercise');
-  currentActivityCardMarker.classList.add('activity-card-marker-meditate');
-}
-
-function displayActivityMarkerExercise() {
-  currentActivityCardMarker.classList.remove('activity-card-marker-meditate');
-  currentActivityCardMarker.classList.remove('activity-card-marker-study');
-  currentActivityCardMarker.classList.add('activity-card-marker-exercise');
-}
-
-// Helper Functions
