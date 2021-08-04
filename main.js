@@ -31,6 +31,7 @@ let currentActivity;
 let isTimerActive = false;
 let minutes;
 let seconds;
+let throwsError = false;
 let timerInterval
 
 // Event Listeners
@@ -108,30 +109,31 @@ function startActivity(event) {
   startTimerButton.innerText = "START";
   newActivityForm.classList.add('hidden');
   currentActivitySection.classList.remove('hidden');
-
   formatTimerDisplay();
   countdownTimer.innerText = `${minutes}:${seconds}`;
-
   currentDescription.innerText = description.value;
+  applyBorderColor();
+}
 
+function formatTimerDisplay() {
+  if (secondsInput.value < 10) {
+    seconds = 0 + secondsInput.value;
+  } else {
+    seconds = secondsInput.value;
+  }
+
+  if (minutesInput.value < 10) {
+    minutes = 0 + minutesInput.value;
+  }
+}
+
+function applyBorderColor() {
   if (activeButton === "study") {
     showStudyBorder();
   } else if (activeButton === "meditate") {
     showMeditateBorder();
   } else if (activeButton === "exercise") {
     showExerciseBorder();
-  }
-}
-
-function formatTimerDisplay() {
-  if (secondsInput.value < 10) {
-    seconds = 0 + secondsInput.value
-  } else {
-    seconds = secondsInput.value;
-  }
-  
-  if (minutesInput.value < 10) {
-    minutes = 0 + minutesInput.value
   }
 }
 
@@ -176,11 +178,7 @@ var isExerciseSelected;
 
 function changeColor(event) {
   event.preventDefault();
-
-  isStudySelected = event.target.matches('.js-study-button') || event.target.matches('.js-study-icon-inactive') || event.target.matches('.js-study-icon-active');
-  isMeditateSelected = event.target.matches('.js-meditate-button') || event.target.matches('.js-meditate-icon-inactive') || event.target.matches('.js-meditate-icon-active');
-  isExerciseSelected = event.target.matches('.js-exercise-button') || event.target.matches('.js-exercise-icon-inactive') || event.target.matches('.js-exercise-icon-active');
-
+  isActivitySelected();
   if (isStudySelected) {
     handleStudySelection();
   } else if (isMeditateSelected) {
@@ -190,10 +188,23 @@ function changeColor(event) {
   }
 }
 
+function isActivitySelected() {
+  isStudySelected = event.target.matches('.js-study-button')
+    || event.target.matches('.js-study-icon-inactive')
+    || event.target.matches('.js-study-icon-active');
+  isMeditateSelected = event.target.matches('.js-meditate-button')
+    || event.target.matches('.js-meditate-icon-inactive')
+    || event.target.matches('.js-meditate-icon-active');
+  isExerciseSelected = event.target.matches('.js-exercise-button')
+    || event.target.matches('.js-exercise-icon-inactive')
+    || event.target.matches('.js-exercise-icon-active');
+}
+
 function handleStudySelection() {
   if (activeButton === "meditate") {
     toggleMeditate();
   }
+
   if (activeButton === "exercise") {
     toggleExercise();
   }
@@ -206,6 +217,7 @@ function handleMeditateSelection() {
   if (activeButton === "study") {
     toggleStudy();
   }
+
   if (activeButton === "exercise") {
     toggleExercise();
   }
@@ -218,6 +230,7 @@ function handleExerciseSelection() {
   if (activeButton === "study") {
     toggleStudy();
   }
+
   if (activeButton === "meditate") {
     toggleMeditate();
   }
@@ -245,20 +258,24 @@ function toggleExercise() {
 }
 
 function checkInput(event) {
-  var throwsError = false;
+  event.preventDefault();
   if (!activeButton) {
     categoryError.classList.remove('hidden');
   }
 
+  checkForEmptyInput();
+
+  if (!throwsError) {
+    startActivity(event);
+  }
+}
+
+function checkForEmptyInput() {
   for (var i = 0; i < inputs.length; i++) {
     if (inputs[i].value === "") {
       errors[i].classList.remove('hidden');
       throwsError = true;
     }
-  }
-
-  if (!throwsError) {
-    startActivity(event);
   }
 }
 
